@@ -31,3 +31,22 @@ routes(app); //register the route
 app.listen(port, () => {
  console.log("App started on port " + port);
 });
+
+
+
+
+/*
+
+Follow up
+
+- Understand the code. Learn how Mongoose is doing work behind the scenes (eg. How is it deleting data? DeprecationWarning: collection.remove is deprecated. Use deleteOne, deleteMany, or bulkWrite instead)
+
+- Running code on cloud server
+
+- Dev prod environments
+
+- Better error handling
+
+- Added data fields, validation, and manipulations
+
+*/
