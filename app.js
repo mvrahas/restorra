@@ -2,6 +2,7 @@
 // Connect api to mongo db https://codeburst.io/building-a-rest-api-using-mongo-db-75cac3403fab
 // Use mongoode to create data models and api methods https://www.codementor.io/olatundegaruba/nodejs-restful-apis-in-10-minutes-q0sgsfhbd
 // Config for managing variables in different environments https://codeburst.io/node-js-best-practices-smarter-ways-to-manage-config-files-and-variables-893eef56cbef
+// 
 
 process.env.NODE_ENV = 'staging';
 
@@ -53,6 +54,11 @@ app.listen(port, () => {
 /*
 
 Follow up
+
+Create multiple google cliud project configurations for Staging and Prod. Run `gcloud topic configurations` to learn more.
+* Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
+* Run `gcloud topic --help` to learn about advanced features of the SDK like arg files and output formatting
+
 
 - Understand the code. Learn how Mongoose is doing work behind the scenes (eg. How is it deleting data? DeprecationWarning: collection.remove is deprecated. Use deleteOne, deleteMany, or bulkWrite instead)
 
