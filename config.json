@@ -10,7 +10,7 @@
     },
     "staging": {
         "config_id": "staging",
-        "node_port": 8000,
+        "node_port": 8080,
         "database": "golf_app_stag",
         "database_url": "mongodb+srv://telemarkus:Vrahas128@telemarkus-rp9d8.gcp.mongodb.net/golf_app_stag?retryWrites=true&w=majority"
     },
