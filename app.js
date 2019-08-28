@@ -31,7 +31,10 @@ var url = finalConfig.database_url;
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useNewUrlParser: true }); 
+mongoose.connect(url, { useNewUrlParser: true }).catch(err => {
+        logger.error('Mongodb first connection failed: ' + err.stack);
+        // what to do here? - process.exit(0); maybe?
+    }); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
