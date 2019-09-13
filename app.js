@@ -31,10 +31,7 @@ var url = finalConfig.database_url;
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useNewUrlParser: true }).catch(err => {
-        logger.error('Mongodb first connection failed: ' + err.stack);
-        // what to do here? - process.exit(0); maybe?
-    }); 
+mongoose.connect(url, { useNewUrlParser: true }).then(res => console.log("Connected to DB")).catch(err => console.log(err));
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,23 +51,5 @@ app.listen(port, () => {
 
 
 
-/*
-
-Follow up
-
-Create multiple google cliud project configurations for Staging and Prod. Run `gcloud topic configurations` to learn more.
-* Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
-* Run `gcloud topic --help` to learn about advanced features of the SDK like arg files and output formatting
-
-
-- Understand the code. Learn how Mongoose is doing work behind the scenes (eg. How is it deleting data? DeprecationWarning: collection.remove is deprecated. Use deleteOne, deleteMany, or bulkWrite instead)
-
-- Running code on cloud server
-
-- Dev prod environments
-
-- Better error handling
-
-- Added data fields, validation, and manipulations
-
-*/
+// Read this article to learn how to fix unhandled promise rejections. So close!!!
+// https://alphacoder.xyz/nodejs-unhandled-promise-rejection-warning/
