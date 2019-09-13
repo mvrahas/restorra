@@ -44,7 +44,7 @@ routes(app); //register the route
 
 
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 5000, () => {
  console.log("App started on port " + port);
 });
 
