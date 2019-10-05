@@ -9,7 +9,7 @@ var HoleSchema = new Schema({
   },
   course_name: {
     type: String,
-    required: false
+    required: true
   },
   course_slope: {
     type: Number,
@@ -30,7 +30,27 @@ var HoleSchema = new Schema({
   score: {
     type: Number,
     required: true
-  }
+  },
+  putts: {
+    type: Number,
+    required: false
+  },
+  fairway: {
+    type: String,
+    required: false
+  },
+  green: {
+    type: String,
+    required: false
+  },
+  scrambling: {
+    type: String,
+    required: false
+  },
+  sand: {
+    type: String,
+    required: false
+  },
 });
 
 module.exports = mongoose.model('Holes', HoleSchema);

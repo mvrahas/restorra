@@ -13,7 +13,6 @@ const environment = process.env.NODE_ENV || 'development';
 const environmentConfig = config[environment];
 const finalConfig = _.merge(defaultConfig, environmentConfig);
 global.gConfig = finalConfig;
-console.log(finalConfig.node_port);
 
 
 
@@ -45,7 +44,7 @@ routes(app); //register the route
 
 
 app.listen(process.env.PORT || 5000, () => {
- console.log("App started on port " + port);
+ console.log("App started on port 5000");
 });
 
 
