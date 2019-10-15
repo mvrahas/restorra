@@ -5,6 +5,8 @@
 // 
 
 
+const APPLICATION_VERSION = "0.1.0"
+
 //environment setup
 const _ = require('lodash');
 const config = require('./config.json');
@@ -42,7 +44,7 @@ routes(app); //register the route
 
 
 app.listen(process.env.PORT || 5000, () => {
- console.log("App started on port 5000");
+ console.log("Version " +APPLICATION_VERSION+ " started on port 5000");
 });
 
 
