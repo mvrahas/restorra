@@ -1,0 +1,23 @@
+{
+    "development": {
+        "config_id": "development",
+        "app_name": "golf_app",
+        "app_desc": "my app desc",
+        "node_port": 3000,
+        "json_indentation": 4,
+        "database": "golf_app_dev",
+        "database_url": "mongodb+srv://telemarkus:Vrahas128@telemarkus-rp9d8.gcp.mongodb.net/golf_app_dev?retryWrites=true&w=majority"
+    },
+    "staging": {
+        "config_id": "staging",
+        "node_port": 8080,
+        "database": "golf_app_stag",
+        "database_url": "mongodb+srv://telemarkus:Vrahas128@telemarkus-rp9d8.gcp.mongodb.net/golf_app_stag?retryWrites=true&w=majority"
+    },
+    "production": {
+        "config_id": "production",
+        "node_port": 8080,
+        "database": "golf_app_prod",
+        "database_url": "mongodb+srv://telemarkus:Vrahas128@telemarkus-rp9d8.gcp.mongodb.net/golf_app_prod?retryWrites=true&w=majority"
+    }
+}

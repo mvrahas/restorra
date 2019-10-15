@@ -50,3 +50,7 @@ exports.delete_a_hole = function(req, res) {
   });
 };
 
+
+// This doc may come in handy here. We may need to add promises to each of these routes that involve querying our database. We also may need to add a promise to the mongoose method for connecting to Mongo DB
+// https://mongoosejs.com/docs/promises.html
+
