@@ -4,17 +4,15 @@
 // Config for managing variables in different environments https://codeburst.io/node-js-best-practices-smarter-ways-to-manage-config-files-and-variables-893eef56cbef
 // 
 
-process.env.NODE_ENV = 'staging';
 
+//environment setup
 const _ = require('lodash');
 const config = require('./config.json');
 const defaultConfig = config.development;
-const environment = process.env.NODE_ENV || 'development';
+const environment = process.env.DEPLOYMENT_ENV || 'staging';
 const environmentConfig = config[environment];
 const finalConfig = _.merge(defaultConfig, environmentConfig);
 global.gConfig = finalConfig;
-
-
 
 
 var express = require("express");
