@@ -1,19 +1,27 @@
 {
-  "name": "api_tutorial",
+  "name": "golf-app-api",
   "version": "1.0.0",
-  "description": "Turorial to create a simple api using the Express.js module",
-  "main": "app.js",
+  "description": "Simple tool for tracking golf scores and stats",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mvrahas@github.com/mvrahas/golf-app-api.git"
   },
   "author": "telemarkus",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvrahas/golf-app-api/issues"
+  },
+  "homepage": "https://github.com/mvrahas/golf-app-api#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "loadash": "^1.0.0",
-    "mongodb": "^3.3.2",
-    "mongoose": "^5.6.7"
+    "chalk": "^3.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
