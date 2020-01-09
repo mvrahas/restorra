@@ -5,6 +5,7 @@
 // 
 
 
+//application version
 const APPLICATION_VERSION = "0.1.0"
 
 //environment setup
