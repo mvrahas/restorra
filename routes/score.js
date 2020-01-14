@@ -6,10 +6,10 @@ router.get('/scores', (req, res) => {
     res.send('This is where the scores will be listed')
   })
   
-router.post('/scores/:score', (req, res) => {
-  
-var entry = new Score({ name: req.params.score });
-  
+router.post('/scores', (req, res) => {
+
+
+var entry = new Score(req.body);
     entry.save((err, entry) => {
       if (err) {
         console.log(err)
@@ -17,7 +17,6 @@ var entry = new Score({ name: req.params.score });
       }
       res.status(200).send(entry)
     })
-  
 })
 
 module.exports = router

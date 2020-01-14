@@ -8,7 +8,8 @@ const port = process.env.PORT || 3000
  
 
 
-
+app.use(express.json())
+app.use(scoreRouter)
 
 
 //express stuff
@@ -18,5 +19,3 @@ app.listen(port, () => {console.log(chalk.green('App is up on ' +port))})
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
-
-app.use(scoreRouter)
