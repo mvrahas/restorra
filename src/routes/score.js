@@ -36,11 +36,13 @@ router.post('/scores', async (req, res) => {
   var entry = new Score(req.body)
   try {
     await entry.save()
-    res.status(200).send(entry)
+    res.status(201).send(entry)
   } catch (e) {
     res.status(400).send(e)
   }
 
 })
+
+
 
 module.exports = router
