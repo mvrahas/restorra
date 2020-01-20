@@ -15,7 +15,32 @@ router.post('/register', async (req, res) => {
       res.status(400).send(e)
     }
 
-  })
+})
+
+router.patch('/users/:id', async (req, res) => {
+  
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['name', 'email', 'password', 'goal']
+  const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+  if (!isValidOperation) {
+      return res.status(400).send({error: 'invalid updates!'})
+  }
+
+  try {
+    const user = await User.findById(req.params.id)
+    if(!user) {
+      res.status(400).send('None Found')
+    }
+    updates.forEach((update) => user[update] = req.body[update])
+    await user.save()
+    res.send(user)
+  } catch (e) {
+      res.status(500).send(e)
+  }
+
+})
+
 
 router.get('/users', async (req, res) => {
 
