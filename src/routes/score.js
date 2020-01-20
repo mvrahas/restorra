@@ -22,6 +22,9 @@ router.get('/scores', async (req, res) => {
   //   res.status(400).send('There was an issue')
   // })
   
+
+  
+
   // Implementation with async await
   try {
     const scores = await Score.find({})
