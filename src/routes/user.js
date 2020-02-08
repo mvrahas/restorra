@@ -1,20 +1,21 @@
 const express = require('express')
 const User = require('../models/user')
 const router = express.Router()
-
+const jwt = require('jsonwebtoken')
+const props = require('../props.js')
 
 
 
 router.post('/register', async (req, res) => {
-  
   const user = new User(req.body)
     try {
+      const token = jwt.sign({lvl: 'admin', usr: 'email'}, props.secret, {expiresIn: 172800})
+      user.tokens = [token]
       await user.save()
       res.status(201).send(user)
     } catch (e) {
       res.status(400).send(e)
     }
-
 })
 
 router.patch('/users/:id', async (req, res) => {
@@ -52,4 +53,6 @@ router.get('/users', async (req, res) => {
   }
 })
 
-  module.exports = router
+
+
+module.exports = router

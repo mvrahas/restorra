@@ -26,10 +26,13 @@ userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    tokens : {
+        type: Array
+    },
     goal : {
         type: String,
         required: false
-    },
+    }
 })
 
 userSchema.pre('save', async function(next) {
