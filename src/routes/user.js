@@ -1,8 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
 const router = express.Router()
-const jwt = require('jsonwebtoken')
-const props = require('../props.js')
 const bcrypt = require('bcrypt')
 
 
@@ -10,18 +8,12 @@ const bcrypt = require('bcrypt')
 router.post('/register', async (req, res) => {
   const user = new User(req.body)
     try {
-      user.tokens = [issueAuthToken('admin', user.email)]
-      await user.save()
+      await user.issueAuthToken()
       res.status(201).send(user)
     } catch (e) {
       res.status(400).send(e)
     }
 })
-
-
-const issueAuthToken = function (lvl, usr) {
-  return jwt.sign({lvl, usr}, props.secret, {expiresIn: 172800})
-}
 
 router.post('/login', async (req, res) => {
   try {
@@ -29,7 +21,7 @@ router.post('/login', async (req, res) => {
     if (user) {
       const match = await bcrypt.compare(req.body.password, user.password)
       if (match) {
-        user.tokens.push(issueAuthToken('admin', user.email))
+        await user.issueAuthToken()
         res.status(200).send(user)
       } else {
         res.status(400).send('Incorrect login information')

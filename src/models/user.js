@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true);
 const validator = require('validator')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const props = require('../props.js')
 
 userSchema = new mongoose.Schema({
 
@@ -43,6 +45,13 @@ userSchema.pre('save', async function(next) {
     next()
 });
 
+userSchema.methods.issueAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({_id: user._id}, props.secret, {expiresIn: 172800})
+    user.tokens = user.tokens.concat({token})
+    await user.save()
+    return token
+}
 
 const User = mongoose.model('User', userSchema);
 
