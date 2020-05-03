@@ -25,6 +25,10 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.get('/me', authenticate, async (req, res) => {
+  res.send(req.user)
+})
+
 
 router.patch('/users/:id', authenticate, async (req, res) => {
   
