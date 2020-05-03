@@ -37,6 +37,26 @@ userSchema = new mongoose.Schema({
     }
 })
 
+
+
+userSchema.statics.findByCredentials = async (email, password) => {
+    const user = await User.findOne({email})
+    if (!user) {
+        throw new Error('Unable to log in')
+    }
+
+    const ismatch = await bcrypt.compare(password, user.password)
+
+    if(!ismatch) {
+        throw new Error('Unable to log in')
+    }
+
+    return user
+
+}
+
+
+
 userSchema.pre('save', async function(next) {
     const user = this
     if (user.isModified('password')) {
@@ -44,6 +64,19 @@ userSchema.pre('save', async function(next) {
     }
     next()
 });
+
+
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+    
+    delete userObject.tokens
+    delete userObject.password
+    
+    return userObject
+}
+
+
 
 userSchema.methods.issueAuthToken = async function () {
     const user = this

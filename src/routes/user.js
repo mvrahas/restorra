@@ -8,8 +8,8 @@ const bcrypt = require('bcrypt')
 router.post('/register', async (req, res) => {
   const user = new User(req.body)
     try {
-      await user.issueAuthToken()
-      res.status(201).send(user)
+      token = await user.issueAuthToken()
+      res.status(201).send({user, token})
     } catch (e) {
       res.status(400).send(e)
     }
@@ -17,24 +17,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({email: req.body.email})
-    if (user) {
-      const match = await bcrypt.compare(req.body.password, user.password)
-      if (match) {
-        await user.issueAuthToken()
-        res.status(200).send(user)
-      } else {
-        res.status(400).send('Incorrect login information')
-      }
-    } else {
-      res.status(404)
-    }
+    const user = await User.findByCredentials(req.body.email, req.body.password)
+    token = await user.issueAuthToken()
+    res.status(200).send({user, token})
   } catch (e) {
-    res.status(500).send(e)
+    res.status(400).send(e.message)
   }
 })
-
-
 
 
 router.patch('/users/:id', authenticate, async (req, res) => {
@@ -48,10 +37,7 @@ router.patch('/users/:id', authenticate, async (req, res) => {
   }
 
   try {
-    const user = await User.findById(req.params.id)
-    if(!user) {
-      res.status(400).send('None Found')
-    }
+    const user = req.user
     updates.forEach((update) => user[update] = req.body[update])
     await user.save()
     res.send(user)
