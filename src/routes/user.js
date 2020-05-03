@@ -4,7 +4,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 
 
-
+// Register a new user
 router.post('/register', async (req, res) => {
   const user = new User(req.body)
     try {
@@ -15,6 +15,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
+// Login an exisiting user
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
@@ -25,12 +26,13 @@ router.post('/login', async (req, res) => {
   }
 })
 
+// Read user profile
 router.get('/me', authenticate, async (req, res) => {
   res.send(req.user)
 })
 
-
-router.patch('/users/:id', authenticate, async (req, res) => {
+// Update user profile
+router.patch('/users', authenticate, async (req, res) => {
   
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'email', 'password', 'goal']
@@ -51,7 +53,7 @@ router.patch('/users/:id', authenticate, async (req, res) => {
 
 })
 
-
+// Show all users
 router.get('/users', authenticate, async (req, res) => {
 
   try {
@@ -62,6 +64,7 @@ router.get('/users', authenticate, async (req, res) => {
   }
 })
 
+// Remove current session token
 router.patch('/logout', authenticate, async (req, res) => {
 
   // remove all sessions with the addition of a query parameter all = 'true'
