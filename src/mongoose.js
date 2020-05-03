@@ -20,4 +20,4 @@ db.once('open', function() {
 });
 
 
-// Run the following to start MongoDB locally... "/Users/telemarkus/mongodb/bin/mongod --dbpath /Users/telemarkus/mongodb-data"
+// Run the following to start MongoDB locally... "mongod --dbpath /Users/telemarkus/Development/mongodb-data"

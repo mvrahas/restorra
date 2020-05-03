@@ -1,8 +1,9 @@
 const Score = require('../models/score.js')
 const express = require('express')
 const router = express.Router()
+const authenticate = require('../tools/authenticate.js')
 
-router.get('/scores', async (req, res) => {
+router.get('/scores', authenticate, async (req, res) => {
   
   // Implementation with callbacks
 
@@ -34,7 +35,7 @@ router.get('/scores', async (req, res) => {
   }
 })
   
-router.post('/scores', async (req, res) => {
+router.post('/scores', authenticate, async (req, res) => {
 
   var entry = new Score(req.body)
   try {

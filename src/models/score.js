@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
+
 var scoreSchema = new mongoose.Schema({
   score: {
     type: Number,

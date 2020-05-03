@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
 
 
 
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/:id', authenticate, async (req, res) => {
   
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'email', 'password', 'goal']
@@ -62,13 +62,34 @@ router.patch('/users/:id', async (req, res) => {
 })
 
 
-router.get('/users', async (req, res) => {
+router.get('/users', authenticate, async (req, res) => {
 
   try {
     const users = await User.find({})
     res.status(200).send(users)
   } catch (e) {
     res.status(500).send(e)
+  }
+})
+
+router.patch('/logout', authenticate, async (req, res) => {
+
+  // remove all sessions with the addition of a query parameter all = 'true'
+  var filtered = []
+  if (req.query.all != 'true'){
+    var array = req.user.tokens
+    filtered = array.filter(
+    function(value){
+      return value.token != req.token
+    })
+  }
+  
+  try {
+    updated = await User.findByIdAndUpdate({ _id: req.user._id },{ tokens: filtered },{ useFindAndModify: false })
+    res.status(200).send('Successfully logged out')
+  } catch (e) {
+      console.log(e)
+      res.status(500).send(e)
   }
 })
 
