@@ -37,6 +37,18 @@ var scoreSchema = new mongoose.Schema({
   courseSlope: {
     type: Number,
     required: true
+  },
+  putts: {
+    type: Number,
+    required: false
+  },
+  fairways: {
+    type: Number,
+    required: false
+  },
+  greens: {
+    type: Number,
+    required: false
   }
 });
   
