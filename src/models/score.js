@@ -7,6 +7,11 @@ var scoreSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  player: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+    required: true
+  },
   date: {
     type: String,
     required: true,

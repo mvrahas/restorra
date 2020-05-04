@@ -31,6 +31,7 @@ router.get('/me', authenticate, async (req, res) => {
   res.send(req.user)
 })
 
+
 // Update user profile
 router.patch('/users', authenticate, async (req, res) => {
   
