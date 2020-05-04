@@ -18,7 +18,6 @@ authenticate = async function (req, res, next) {
         return next()
 
     } catch (e) {
-        console.log(e)
         res.status(401).send('Authentication needed')
     }
 }
