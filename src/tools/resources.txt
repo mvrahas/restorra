@@ -1,0 +1,17 @@
+RESOURCES
+
+Documentation for the GHIN API
+https://app.swaggerhub.com/apis-docs/GHIN/Admin/1.0
+
+An app similar in concept to what I want to make
+https://www.mendix.com/blog/built-golf-handicap-forecasting-app-mobile/
+
+Interesting presentation about the GHIn products & mobile app
+http://www.ghinblog.com/wp-content/uploads/2018/06/June-2018-Product-Call-vF-for-GHIN-Blog.pdf
+
+
+
+IMPROVEMENTS TO MAKE
+- Improved error messages
+- Data validations
+- Automated testing of endpoints

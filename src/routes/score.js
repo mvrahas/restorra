@@ -26,6 +26,31 @@ router.post('/scores', authenticate, async (req, res) => {
 
 })
 
+router.get('/scores/summary', authenticate, async (req, res) => {
+  
+    const aggregate = await Score.aggregate([
+      { $match: {player: req.user._id}},
+      {$group: {_id: '$player', average: {$avg: '$score'}}}
+    ])
+    const score_obj = {
+      avg_score: aggregate[0].average,
+      goal_score: aggregate[0].average - 2,
+      putts: {
+        current: 28,
+        goal: 25
+      },
+      greens: {
+        current: 5,
+        goal: 8
+      },
+      fairways: {
+        current: 3,
+        goal: 5
+      }
+    }
+    res.status(200).send(score_obj)
+})
+
 
 
 module.exports = router
