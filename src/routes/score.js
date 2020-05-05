@@ -26,12 +26,13 @@ router.post('/scores', authenticate, async (req, res) => {
 
 })
 
-router.get('/scores/summary', authenticate, async (req, res) => {
 
+router.get('/scores/summary', authenticate, async (req, res) => {
 
     const scores = await Score.find({player: req.user._id}).limit(10).sort({ date: -1 })
     filtered_scores = []
-    for (var i = 0; i<10; i++) {
+    for (var i = 0; i<scores.length; i++) {
+      console.log(scores[i])
       var temp_score = scores[i].toObject()
       delete temp_score._id
       delete temp_score.type

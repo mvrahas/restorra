@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html> 
+    <head> 
+        <link rel="icon" href="/img/icon.png">
+        <link rel='stylesheet' href='/css/styles.css'>
+    </head>
+    <body>
+        <div class='main-content'>
+            <p>Welcome to the golf app</p>
+            <form class="form" id="myForm">
+                <input type="text" placeholder="email" name="inp_username">
+                <input type="password" placeholder="password" name="inp_password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        {{>footer}}
+        <script>
+            const myForm = document.getElementById("myForm")
+            myForm.addEventListener('submit', function (e) {
+                e.preventDefault()
+
+                const data = {
+                    email: this[0].value,
+                    password: this[1].value
+                }
+
+
+                const options = { 
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                }
+                fetch('/login', options).then(function(response) {
+                    response.json().then((data) => {
+                        document.cookie = "token=" + data.token;
+                        window.open("/about","_self")
+                    }).catch((e) => {
+                        console.log(e)
+                    })
+                }).catch(function (error) {
+                    console.log(error)
+                })
+
+            }) 
+
+        </script>
+    </body>
+</html>
