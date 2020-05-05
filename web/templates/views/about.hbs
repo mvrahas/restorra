@@ -3,75 +3,61 @@
 <html> 
     <head> 
         <link rel='stylesheet' href='./css/styles.css'>
+        <script src='./js/network-request.js'></script>
     </head>
     <body>
         <div class="main-content">
             {{>header}}
             <div id='message-one' </div>
-            <div id='score-avg' class='stats-window'> </div>
-            <div id='score-goal' class='stats-window'> </div>
-            <div id='putts-avg' class='stats-window'> </div>
-            <div id='putts-goal' class='stats-window'> </div>
-            <div id='greens-avg' class='stats-window'> </div>
-            <div id='greens-goal' class='stats-window'> </div>
-            <div id='fairways-avg' class='stats-window'> </div>
-            <div id='fairways-goal' class='stats-window'> </div>
+            <p class='stats-label'>Score Avg</p>
+            <p id='score-avg' class='stats-window'></p>
+            <p class='stats-label'>Score Goal</p>
+            <p id='score-goal' class='stats-window'> </p>
+            <p class='stats-label'>Putts Avg</p>
+            <p id='putts-avg' class='stats-window'> </p>
+            <p class='stats-label'>Putts Goal</p>
+            <p id='putts-goal' class='stats-window'> </p>
+            <p class='stats-label'>Greens Avg</p>
+            <p id='greens-avg' class='stats-window'> </p>
+            <p class='stats-label'>Greens Goal</p>
+            <p id='greens-goal' class='stats-window'> </p>
+            <p class='stats-label'>Fairway Avg</p>
+            <p id='fairways-avg' class='stats-window'> </p>
+            <p class='stats-label'>Fairway Goal</p>
+            <p id='fairways-goal' class='stats-window'> </p>
         </div>
         {{>footer}}
     </body>
     <script>
 
-        function getCookie(name) {
-            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-            return v ? v[2] : null;
-        }
+        populateData = async function() {
+            try {
+                const data = await get('/scores/summary')
 
-        const token = getCookie('token')
+                const messageOne = document.getElementById('message-one')
+                const $scoreAvg = document.getElementById('score-avg')
+                const $scoreGoal = document.getElementById('score-goal')
+                const $puttsAvg = document.getElementById('putts-avg')
+                const $puttsGoal = document.getElementById('putts-goal')
+                const $greensAvg = document.getElementById('greens-avg')
+                const $greensGoal = document.getElementById('greens-goal')
+                const $fairwaysAvg = document.getElementById('fairways-avg')
+                const $fairwaysGoal = document.getElementById('fairways-goal')
 
-        const messageOne = document.getElementById('message-one')
-        const $scoreAvg = document.getElementById('score-avg')
-        const $scoreGoal = document.getElementById('score-goal')
-        const $puttsAvg = document.getElementById('putts-avg')
-        const $puttsGoal = document.getElementById('putts-goal')
-        const $greensAvg = document.getElementById('greens-avg')
-        const $greensGoal = document.getElementById('greens-goal')
-        const $fairwaysAvg = document.getElementById('fairways-avg')
-        const $fairwaysGoal = document.getElementById('fairways-goal')
-
-
-
-       loadSummary = function() {
-
-            const options = {
-                headers: {
-                    "Authorization" : "Bearer " + token,
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                }
+                $scoreAvg.innerHTML = data.score.average
+                $scoreGoal.innerHTML = data.score.goal
+                $puttsAvg.innerHTML = data.putts.average
+                $puttsGoal.innerHTML = data.putts.goal
+                $greensAvg.innerHTML = data.greens.average
+                $greensGoal.innerHTML = data.greens.goal
+                $fairwaysAvg.innerHTML = data.fairways.average
+                $fairwaysGoal.innerHTML = data.fairways.goal
+            } catch (e){
+                console.log(e)
             }
-
-
-            fetch('/scores/summary',options).then((response) => {
-                response.json().then((data) => {
-                    if(data.error) {
-                        messageOne.textContent = data.error
-                    } else {
-                        console.log(data)
-
-                        $scoreAvg.innerHTML = data.score.average
-                        $scoreGoal.innerHTML = data.score.goal
-                        $puttsAvg.innerHTML = data.putts.average
-                        $puttsGoal.innerHTML = data.putts.goal
-                        $greensAvg.innerHTML = data.greens.average
-                        $greensGoal.innerHTML = data.greens.goal
-                        $fairwaysAvg.innerHTML = data.fairways.average
-                        $fairwaysGoal.innerHTML = data.fairways.goal
-                }
-            })
-    })
+        
         }
 
-        loadSummary()        
-
+        populateData()
     </script>
 </html>

@@ -4,6 +4,7 @@
     <head> 
         <link rel="icon" href="/img/icon.png">
         <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
     </head>
     <body>
         <div class='main-content'>
@@ -15,38 +16,24 @@
             </form>
         </div>
         {{>footer}}
-        <script>
+        <script> 
             const myForm = document.getElementById("myForm")
-            myForm.addEventListener('submit', function (e) {
+            myForm.addEventListener('submit', async function (e) {
                 e.preventDefault()
-
-                const data = {
+                const body = {
                     email: this[0].value,
                     password: this[1].value
                 }
-
-
-                const options = { 
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                
+                try {
+                    const data = await post(body,'/login')
+                    document.cookie = "token=" + data.token;
+                    window.open("/about","_self")
+                } catch (e) {
+                    console.log('error')
                 }
-                fetch('/login', options).then(function(response) {
-                    response.json().then((data) => {
-                        document.cookie = "token=" + data.token;
-                        window.open("/about","_self")
-                    }).catch((e) => {
-                        console.log(e)
-                    })
-                }).catch(function (error) {
-                    console.log(error)
-                })
 
-            }) 
-
+            })
         </script>
     </body>
 </html>
