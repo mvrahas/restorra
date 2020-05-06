@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html> 
+    <head> 
+        <link rel="icon" href="/img/icon.png">
+        <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
+    </head>
+    <body>
+        <div class='main-content'>
+            {{>header}}
+        <ul class="scores_list">
+            {{#each scores}}
+            <li>{{this.putts}}</li>
+            <li>{{this.fairways}}</li>
+            <li>{{this.other}}</li>
+            {{/each}}
+        </ul>
+        </div>
+        {{>footer}}
+
+        <script> 
+    
+        </script>
+    </body>
+</html>

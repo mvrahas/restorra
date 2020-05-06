@@ -5,7 +5,7 @@ function getCookie(name) {
 
 
 const token = getCookie('token')
-
+console.log(token)
 get = async function(route) {
 
     const options = {
@@ -22,7 +22,6 @@ get = async function(route) {
         if(json_data.error) {
             return json_data.error
         } else {
-            console.log(json_data)
             return json_data
         }
     } catch (e) {
@@ -32,7 +31,7 @@ get = async function(route) {
 }
 
 
-post = async function(body,route) {
+post = async function(body,route,includeAuth) {
 
     const options = { 
         method: 'POST',
@@ -41,6 +40,10 @@ post = async function(body,route) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body)
+        //body: body
+    }
+    if(includeAuth) {
+        options.headers["Authorization"] = "Bearer " + token
     }
     
     try {
@@ -49,7 +52,6 @@ post = async function(body,route) {
         if(json_data.error) {
             return json_data.error
         } else {
-            console.log(json_data)
             return json_data
         }
     } catch (e) {

@@ -4,20 +4,36 @@
     <head> 
         <link rel="icon" href="/img/icon.png">
         <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
     </head>
     <body>
         <div class='main-content'>
-            {{>header}}
-            <img src="/img/download.jpg" class="hero-image">
-            <p> Use this site to get your weather</p>
-            <form>
-                <input placeholder="location">
-                <button>Search</button>
+            <p>Welcome to the golf app</p>
+            <form class="form" id="myForm">
+                <input type="text" placeholder="email" name="inp_username">
+                <input type="password" placeholder="password" name="inp_password">
+                <button type="submit">Login</button>
             </form>
-            <p id="message-1"></p>
-            <p id="message-2"></p>
         </div>
         {{>footer}}
-        <script src='/js/app.js'></script>
+        <script> 
+            const myForm = document.getElementById("myForm")
+            myForm.addEventListener('submit', async function (e) {
+                e.preventDefault()
+                const body = {
+                    email: this[0].value,
+                    password: this[1].value
+                }
+                
+                try {
+                    const data = await post(body,'/login', false)
+                    document.cookie = "token=" + data.token;
+                    window.open("/summary","_self")
+                } catch (e) {
+                    console.log('error')
+                }
+
+            })
+        </script>
     </body>
 </html>

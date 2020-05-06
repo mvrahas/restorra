@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html> 
+    <head> 
+        <link rel="icon" href="/img/icon.png">
+        <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
+    </head>
+    <body>
+        <div class='main-content'>
+            {{>header}}
+            <form class="form" id="myForm">
+                <input type="text" placeholder="score" name="score">
+                <input type="date" placeholder="date" name="date">
+                <input type="text" placeholder="type" name="type">
+                <input type="text" placeholder="course" name="course">
+                <input type="text" placeholder="course rating" name="courseRating">
+                <input type="text" placeholder="course slope" name="courseSlope">
+                <input type="number" placeholder="putts" name="putts">
+                <input type="number" placeholder="fairways" name="fairways">
+                <input type="number" placeholder="greens" name="greens">
+                <button type="submit">Post Score</button>
+            </form>
+        </div>
+        {{>footer}}
+
+        
+        <script> 
+            const myForm = document.getElementById("myForm")
+            myForm.addEventListener('submit', async function (e) {
+                e.preventDefault()
+
+                var body = {}
+                for ( var i = 0; i < myForm.length - 1; i++) {
+                    body[myForm[i].name] = myForm[i].value
+                }
+                
+                try {
+                    const data = await post(body,'/scores',true)
+                    console.log(data)
+                } catch (e) {
+                    console.log(e)
+                }
+                
+
+            })
+        </script>
+    </body>
+</html>
