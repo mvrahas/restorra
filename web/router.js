@@ -24,6 +24,13 @@ router.get('/summary', (req, res) => {
     })
 })
 
+router.get('/register', (req, res) => {
+    res.render('register', {
+        title: "Register",
+        name: "telemarkus"
+    })
+})
+
 router.get('/allscores', getCookie, async (req, res) => {
     
     var options = {

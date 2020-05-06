@@ -8,27 +8,29 @@
     </head>
     <body>
         <div class='main-content'>
-            <p>Welcome to the golf app</p>
+            <p>Register as a new user</p>
             <form class="form" id="myForm">
-                <input type="text" placeholder="email" name="inp_username">
-                <input type="password" placeholder="password" name="inp_password">
+                <input type="text" placeholder="name" name="name">
+                <input type="text" placeholder="email" name="email">
+                <input type="password" placeholder="password" name="password">
                 <button type="submit">Login</button>
             </form>
-            <a href="/register">Register for an account</a>
         </div>
         {{>footer}}
         <script> 
             const myForm = document.getElementById("myForm")
             myForm.addEventListener('submit', async function (e) {
                 e.preventDefault()
-                const body = {
-                    email: this[0].value,
-                    password: this[1].value
+                
+                var body = {}
+                for ( var i = 0; i < myForm.length - 1; i++) {
+                    body[myForm[i].name] = myForm[i].value
                 }
                 
                 try {
-                    const data = await post(body,'/login', false)
+                    const data = await post(body,'/register', false)
                     document.cookie = "token=" + data.token;
+                    console.log(data)
                     window.open("/summary","_self")
                 } catch (e) {
                     console.log('error')

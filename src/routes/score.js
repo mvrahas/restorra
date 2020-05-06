@@ -51,27 +51,34 @@ router.get('/scores/summary', authenticate, async (req, res) => {
       {$limit: 3},
       {$group: {_id: '$player', score: {$avg: '$score'}, putts: {$avg: '$putts'}, greens: {$avg: '$greens'}, fairways: {$avg: '$fairways'}}}
     ])
+    
+    var summary = {}
+    
+    if (aggregate.length > 0) {
 
-    const summary = {
-      summary: filtered_scores,
-      score: {
-        average: aggregate[0].score,
-        goal: Math.floor(aggregate[0].score / 5) * 5
-      },
-      putts: {
-        average: aggregate[0].putts,
-        goal: 'TBD awaiting python !!'
-      },
-      greens: {
-        average: aggregate[0].greens,
-        goal: 'TBD awaiting python !!'
-      },
-      fairways: {
-        average: aggregate[0].fairways,
-        goal: 'TBD awaiting python !!'
+      summary = {
+        summary: filtered_scores,
+        score: {
+          average: aggregate[0].score,
+          goal: Math.floor(aggregate[0].score / 5) * 5
+        },
+        putts: {
+          average: aggregate[0].putts,
+          goal: 'TBD awaiting python !!'
+        },
+        greens: {
+          average: aggregate[0].greens,
+          goal: 'TBD awaiting python !!'
+        },
+        fairways: {
+          average: aggregate[0].fairways,
+          goal: 'TBD awaiting python !!'
+        }
       }
     }
+
     res.status(200).send(summary)
+
 })
 
 

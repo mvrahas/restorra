@@ -5,7 +5,7 @@ function getCookie(name) {
 
 
 const token = getCookie('token')
-console.log(token)
+
 get = async function(route) {
 
     const options = {
