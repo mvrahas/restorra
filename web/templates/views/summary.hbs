@@ -10,9 +10,17 @@
         <div class="main-content">
             <div class="scores_list">
             {{#each summary}}
-            <p>{{this.stat}}</p>
-            <p>{{this.average}}</p>
-            <p>{{this.goal}}</p>
+            <div class="stats-window">
+                <h3>{{this.stat}}</h3>
+                <div class="stats-label">
+                    <p class="stat-text label-text">{{this.average}}</p>
+                    <h5 class="stat-text">Average</h5>
+                </div>
+                <div class="stats-label right">
+                    <p class="stat-text label-text">{{this.goal}}</p>
+                    <h5 class="stat-text">Goal</h5>
+                </div>
+            </div>
             {{/each}}
             </div>
         </div>
