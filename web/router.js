@@ -17,12 +17,30 @@ router.get('/post', (req, res) => {
     })
 })
 
-router.get('/summary', (req, res) => {
-    res.render('summary', {
-        title: "Summary",
-        name: "telemarkus"
-    })
+router.get('/summary', getCookie, async (req, res) => {
+    
+    var options = {
+        uri: 'http://' + req.headers.host + '/scores/summary',
+        headers: {
+            'Authorization': 'Bearer ' + req.token
+        },
+        json: true
+    };
+    
+    try {
+        const summary = await rp(options)
+        console.log(summary.summary_stats)
+        res.render('summary', {
+            title: "Summary",
+            name: "telemarkus",
+            summary: summary.summary_stats
+        })
+    } catch (e) {
+        console.log(e)
+    }
+    
 })
+
 
 router.get('/register', (req, res) => {
     res.render('register', {

@@ -8,56 +8,14 @@
     <body>
         {{>header}}
         <div class="main-content">
-            <div id='message-one' </div>
-            <p class='stats-label'>Score Avg</p>
-            <p id='score-avg' class='stats-window'></p>
-            <p class='stats-label'>Score Goal</p>
-            <p id='score-goal' class='stats-window'> </p>
-            <p class='stats-label'>Putts Avg</p>
-            <p id='putts-avg' class='stats-window'> </p>
-            <p class='stats-label'>Putts Goal</p>
-            <p id='putts-goal' class='stats-window'> </p>
-            <p class='stats-label'>Greens Avg</p>
-            <p id='greens-avg' class='stats-window'> </p>
-            <p class='stats-label'>Greens Goal</p>
-            <p id='greens-goal' class='stats-window'> </p>
-            <p class='stats-label'>Fairway Avg</p>
-            <p id='fairways-avg' class='stats-window'> </p>
-            <p class='stats-label'>Fairway Goal</p>
-            <p id='fairways-goal' class='stats-window'> </p>
+            <div class="scores_list">
+            {{#each summary}}
+            <p>{{this.stat}}</p>
+            <p>{{this.average}}</p>
+            <p>{{this.goal}}</p>
+            {{/each}}
+            </div>
         </div>
         {{>footer}}
     </body>
-    <script>
-
-        populateData = async function() {
-            try {
-                const data = await get('/scores/summary')
-
-                const messageOne = document.getElementById('message-one')
-                const $scoreAvg = document.getElementById('score-avg')
-                const $scoreGoal = document.getElementById('score-goal')
-                const $puttsAvg = document.getElementById('putts-avg')
-                const $puttsGoal = document.getElementById('putts-goal')
-                const $greensAvg = document.getElementById('greens-avg')
-                const $greensGoal = document.getElementById('greens-goal')
-                const $fairwaysAvg = document.getElementById('fairways-avg')
-                const $fairwaysGoal = document.getElementById('fairways-goal')
-
-                $scoreAvg.innerHTML = data.score.average
-                $scoreGoal.innerHTML = data.score.goal
-                $puttsAvg.innerHTML = data.putts.average
-                $puttsGoal.innerHTML = data.putts.goal
-                $greensAvg.innerHTML = data.greens.average
-                $greensGoal.innerHTML = data.greens.goal
-                $fairwaysAvg.innerHTML = data.fairways.average
-                $fairwaysGoal.innerHTML = data.fairways.goal
-            } catch (e){
-                console.log(e)
-            }
-        
-        }
-
-        populateData()
-    </script>
 </html>
