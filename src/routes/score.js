@@ -55,34 +55,33 @@ router.get('/scores/summary', authenticate, async (req, res) => {
     var summary = {}
     
     if (aggregate.length > 0) {
-
       summary = {
         summary: filtered_scores,
         summary_stats: [
           {
             stat: 'Score',
-            average: aggregate[0].score,
-            goal: Math.floor(aggregate[0].score / 5) * 5
+            average: aggregate[0].score || 'na',
+            goal: Math.floor(aggregate[0].score / 5) * 5 || 'na'
           },
           {
             stat: 'Putts',
-            average: aggregate[0].putts,
+            average: aggregate[0].putts || 'na',
             goal: aggregate[0].putts - 1
           },
           {
             stat: 'Greens',
-            average: aggregate[0].greens,
+            average: aggregate[0].greens || 'na',
             goal: aggregate[0].greens + 1
           },
           {
             stat: 'Fairways',
-            average: aggregate[0].fairways,
-            goal: aggregate[0].greens + 1
+            average: aggregate[0].fairways || 'na',
+            goal: aggregate[0].greens + 1 || 'na'
           }
         ]
       }
-
     }
+
 
     res.status(200).send(summary)
 
