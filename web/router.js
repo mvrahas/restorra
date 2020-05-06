@@ -1,5 +1,7 @@
 var express = require('express')
 var router = express.Router()
+var getCookie = require('./public/js/get-cookie.js')
+var rp = require('request-promise')
 
 router.get('/index', (req, res) => {
     res.render('index', {
@@ -22,28 +24,28 @@ router.get('/summary', (req, res) => {
     })
 })
 
-router.get('/allscores', (req, res) => {
-    res.render('allscores', {
-        title: "All Scores",
-        name: "telemarkus",
-        scores: [
-            {
-                putts: 2,
-                fairways: 3,
-                other: 2
-            },
-            {
-                putts: 6,
-                fairways: 3,
-                other: 9
-            },
-            {
-                putts: 8,
-                fairways: 3,
-                other: 2
-            }
-        ]
-    })
+router.get('/allscores', getCookie, async (req, res) => {
+    
+    var options = {
+        uri: 'http://' + req.headers.host + '/scores',
+        headers: {
+            'Authorization': 'Bearer ' + req.token
+        },
+        json: true
+    };
+    
+    try {
+        const scores = await rp(options)
+        res.render('allscores', {
+            title: "All Scores",
+            name: "telemarkus",
+            scores: scores
+        })
+    } catch (e) {
+        console.log(e)
+    }
+
+
 })
 
 

@@ -9,13 +9,16 @@
     <body>
         <div class='main-content'>
             {{>header}}
-        <ul class="scores_list">
+        <div class="scores_list">
             {{#each scores}}
-            <li>{{this.putts}}</li>
-            <li>{{this.fairways}}</li>
-            <li>{{this.other}}</li>
+            <p>{{this.date}}</p>
+            <p>{{this.course}}</p>
+            <p>{{this.score}}</p>
+            <p>{{this.putts}}</p>
+            <p>{{this.fairways}}</p>
+            <p>{{this.greens}}</p>
             {{/each}}
-        </ul>
+        </div>
         </div>
         {{>footer}}
 
