@@ -10,7 +10,7 @@ router.get('/index', (req, res) => {
     })
 })
 
-router.get('/post', (req, res) => {
+router.get('/post', getCookie, (req, res) => {
     res.render('post', {
         title: "Post Score",
         name: "telemarkus"
@@ -29,7 +29,6 @@ router.get('/summary', getCookie, async (req, res) => {
     
     try {
         const summary = await rp(options)
-        console.log(summary.summary_stats)
         res.render('summary', {
             title: "Summary",
             name: "telemarkus",

@@ -5,55 +5,7 @@
         <link rel='stylesheet' href='./css/styles.css'>
         <script src='./js/network-request.js'></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            getData = async function() {
-                try {
-                    const data = await get('/scores/summary')
-                    const isEmpty = Object.keys(data).length === 0 && data.constructor === Object
-                    var chartArray = []
-                    console.log(data.length)
-                    if (!isEmpty) {
-                        chartArray.push(['Date', 'Score', 'Average', 'Goal'])
-                        for (var i = 0; i<data.summary.length; i++) {
-                                chartArray.push([data.summary[i].date,data.summary[i].score,data.summary_stats[0].average, data.summary_stats[0].goal])
-                        }
-                    } else {
-                        document.getElementById('no-data').innerHTML = 'No data yet. Post a score!'
-                    }
-                    return chartArray
-                } catch (e) {
-                    console.log(e)
-                }
-            }
-
-        </script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      async function drawChart() {
-        
-        try {
-            const chartArray = await getData()
-            
-            if (chartArray.length > 0){
-                var data = google.visualization.arrayToDataTable(chartArray);
-                //data.addColumn({type: 'string', role: 'tooltip'});
-                var options = {
-                title: 'Scores Plotted Over Time',
-                curveType: 'function',
-                legend: { position: 'bottom' }
-                }
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'))
-                chart.draw(data, options)
-            }
-
-        } catch (e) {
-            console.log(e)
-        }
-
-      }
-    </script>
+        <script type="text/javascript" src='./js/summary-chart.js'></script>
     </head>
     <body>
         {{>header}}
