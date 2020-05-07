@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html> 
+    <head> 
+        <link rel="icon" href="/img/icon.png">
+        <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
+    </head>
+    <body>
+        <div class='main-content'>
+            <h3>Register as a new user</h3>
+            <form class="form" id="myForm">
+                <input type="text" placeholder="name" name="name">
+                <input type="text" placeholder="email" name="email">
+                <input type="password" placeholder="password" name="password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        {{>footer}}
+        <script> 
+            const myForm = document.getElementById("myForm")
+            myForm.addEventListener('submit', async function (e) {
+                e.preventDefault()
+                
+                var body = {}
+                for ( var i = 0; i < myForm.length - 1; i++) {
+                    body[myForm[i].name] = myForm[i].value
+                }
+                
+                try {
+                    const data = await post(body,'/register', false)
+                    document.cookie = "token=" + data.token;
+                    window.open("/summary","_self")
+                } catch (e) {
+                    console.log('error')
+                }
+
+            })
+        </script>
+    </body>
+</html>

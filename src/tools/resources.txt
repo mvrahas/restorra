@@ -12,6 +12,8 @@ http://www.ghinblog.com/wp-content/uploads/2018/06/June-2018-Product-Call-vF-for
 
 
 IMPROVEMENTS TO MAKE
-- Improved error messages
-- Data validations
+- Improved error messages & data validations
 - Automated testing of endpoints
+- Add more advanced filters and limits to the scores endpoint (e.g. get scores with a specific filter or limit)
+- Add an 'api' prefix to any route that touches the api
+- Requre authentication in order to render a web page

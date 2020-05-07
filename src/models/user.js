@@ -32,8 +32,9 @@ userSchema = new mongoose.Schema({
         type: Array
     },
     goal : {
-        type: String,
-        required: false
+        type: Number,
+        required: false,
+        default: 100
     }
 })
 
