@@ -8,8 +8,10 @@ const webRouter = require('../web/router.js')
 const mongooseConnection = require('./mongoose')
 
 const app = express()
+const environment = process.env.DEPLOYMENT_ENV || 'local'
 const port = process.env.PORT || 3000
- 
+
+
 
 // API Routes
 app.use(express.json())
@@ -32,5 +34,5 @@ app.use(webRouter)
 app.listen(port, () => {console.log(chalk.green('App is up on ' +port))})
 
 app.get('/', (req, res) => {
-  res.send('Hello World')
+  res.redirect('/index')
 })
