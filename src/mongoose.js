@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const connectionURL = 'mongodb://127.0.0.1:27017'
-const databaseName = 'golf-app'
+const connectionURL = global.gConfig.db_connection_string
+const databaseName = global.gConfig.db_name
 
 //Creates the initial connection to MongoDB. A connection = a database
 
