@@ -1,6 +1,6 @@
 {
     "local" : {
-        "APPLICATION_VERSION": "0.1.0",
+        "APPLICATION_VERSION": "0.2.0",
         "APPLICATION_TITLE": "Golf App",
         "db_connection_string" : "mongodb://127.0.0.1:27017",
         "db_name" : "golf-app"
