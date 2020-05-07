@@ -1,0 +1,16 @@
+{
+    "local" : {
+        "APPLICATION_VERSION": "0.2.0",
+        "APPLICATION_TITLE": "Golf App",
+        "db_connection_string" : "mongodb://127.0.0.1:27017",
+        "db_name" : "golf-app"
+    },
+    "development" : {
+        "db_connection_string" : "mongodb+srv://telemarkus:VZrECxVuunjmbVGv@telemarkus-rp9d8.gcp.mongodb.net/test?retryWrites=true&w=majority",
+        "db_name" : "golf-app-dev"
+    },
+    "production" : {
+        "db_connection_string" : "mongodb+srv://telemarkus:VZrECxVuunjmbVGv@telemarkus-rp9d8.gcp.mongodb.net/test?retryWrites=true&w=majority",
+        "db_name" : "golf-app-prod"
+    }
+}

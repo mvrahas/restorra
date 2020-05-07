@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html> 
+    <head> 
+        <link rel="icon" href="/img/icon.png">
+        <link rel='stylesheet' href='/css/styles.css'>
+        <script src='./js/network-request.js'></script>
+    </head>
+    <body>
+        <div class='main-content'>
+            {{>header}}
+        <div>
+            {{#each scores}}
+            <div class="stats-entry">
+                <h3>{{this.course}} - {{this.date}}</h3>
+                <div class="stats-label rounded-blue">
+                    <p class="stat-text">Putts: {{this.putts}}</p>
+                    <p class="stat-text">Fairways: {{this.fairways}}</p>
+                    <p class="stat-text">Greens: {{this.greens}}</p></div>
+                <div class="stats-label right rounded-blue"><p class="enlarged-text">{{this.score}}</p></div>
+            </div>
+            {{/each}}  
+        </div>
+        </div>
+        {{>footer}}
+
+        <script> 
+    
+        </script>
+    </body>
+</html>
