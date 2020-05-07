@@ -7,7 +7,7 @@
     },
     "development" : {
         "db_connection_string" : "mongodb+srv://telemarkus:<password>@telemarkus-rp9d8.gcp.mongodb.net/test?retryWrites=true&w=majority",
-        "db_name" : "golf-app-stag"
+        "db_name" : "golf-app-dev"
     },
     "production" : {
         "db_connection_string" : "mongodb+srv://telemarkus:<password>@telemarkus-rp9d8.gcp.mongodb.net/test?retryWrites=true&w=majority",
