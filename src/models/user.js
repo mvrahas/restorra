@@ -97,7 +97,7 @@ userSchema.methods.issueAuthToken = async function () {
 userSchema.methods.logIntoGHIN = async function () {
     const user = this
     // needs handling for if the request is unsuccessful or GHIN is down
-    url = 'https://api2.ghinasdadasd.com/api/v1/public/login.json?ghinNumber='+user.ghin_number+'&lastName='+user.name+'&remember_me=false'
+    url = 'https://api2.ghin.com/api/v1/public/login.json?ghinNumber='+user.ghin_number+'&lastName='+user.name+'&remember_me=false'
 
   try {
     const response = await axios.get(url)
@@ -107,10 +107,14 @@ userSchema.methods.logIntoGHIN = async function () {
         await user.save()
         return new_ghin_token
     } else {
-        throw new Error("No golfer found")
+        throw new Error("Golfer not found in GHIN")
     }
   } catch (error) {
-    throw new Error(error)
+    if(error.message != "Golfer not found in GHIN") {
+        throw new Error("Something went wrong. Cannot connect to GHIN")
+    } else {
+        throw new Error(error)
+    }
   }
 
 
