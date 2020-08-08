@@ -4,6 +4,7 @@ const validator = require('validator')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const props = require('../props.js')
+const axios = require('axios');
 
 userSchema = new mongoose.Schema({
 
@@ -24,12 +25,16 @@ userSchema = new mongoose.Schema({
             message: 'This is not a valid email address'
         }
     },
-    password : {
+    ghin_number : {
         type: String,
         required: true
     },
     tokens : {
         type: Array
+    },
+    ghin_token : {
+        type: String,
+        default: 'NA'
     },
     goal : {
         type: Number,
@@ -60,9 +65,13 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
 userSchema.pre('save', async function(next) {
     const user = this
+    
+    /*
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8)
     }
+    */
+
     next()
 });
 
@@ -72,12 +81,10 @@ userSchema.methods.toJSON = function () {
     const userObject = user.toObject()
     
     delete userObject.tokens
-    delete userObject.password
+    //delete userObject.password
     
     return userObject
 }
-
-
 
 userSchema.methods.issueAuthToken = async function () {
     const user = this
@@ -86,6 +93,29 @@ userSchema.methods.issueAuthToken = async function () {
     await user.save()
     return token
 }
+
+userSchema.methods.logIntoGHIN = async function () {
+    const user = this
+    // needs handling for if the request is unsuccessful or GHIN is down
+    url = 'https://api2.ghinasdadasd.com/api/v1/public/login.json?ghinNumber='+user.ghin_number+'&lastName='+user.name+'&remember_me=false'
+
+  try {
+    const response = await axios.get(url)
+    if (response.data.golfers.length == 1) {
+        const new_ghin_token = response.data.golfers[0].NewUserToken
+        user.ghin_token = new_ghin_token
+        await user.save()
+        return new_ghin_token
+    } else {
+        throw new Error("No golfer found")
+    }
+  } catch (error) {
+    throw new Error(error)
+  }
+
+
+}
+
 
 const User = mongoose.model('User', userSchema);
 
