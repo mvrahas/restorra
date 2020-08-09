@@ -17,16 +17,18 @@ router.post('/register', async (req, res) => {
     }
 })
 
-// Login an exisiting user
+/*
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
     token = await user.issueAuthToken()
+    ghin_token = await user.logIntoGHIN()
     res.status(200).send({user, token})
   } catch (e) {
     res.status(400).send(e.message)
   }
 })
+*/
 
 // Read user profile
 router.get('/me', authenticate, async (req, res) => {
