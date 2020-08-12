@@ -9,7 +9,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
     const rounds = req.query.rounds
     const roundsToFetch = 20 - rounds
-    const goalDiff = req.query.goal
+    const goalDiff = parseFloat(req.query.goal)
     
     //const url = 'https://api2.ghin.com/api/v1/golfers/'+req.user.ghin_number+'/scores.json?'
     const url = 'https://api2.ghin.com/api/v1/scores.json?golfer_id='+req.user.ghin_number+'&offset=0&limit='+roundsToFetch+'&statuses=Validated'
@@ -26,8 +26,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
         const response = await axios.get(url, requestOptions)
         const dataObject = response.data
-
-        console.log('done')
 
         for (i = 0; i < dataObject.scores.length; i++) {
             
@@ -49,7 +47,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
             var arrayOfDiffsTemp = [...arrayOfDiffs]
             for (i = 0; i < numberToAdd; i++) {
-                arrayOfDiffsTemp.push(parseFloat(tempDiff))
+                arrayOfDiffsTemp.push(tempDiff)
             }
             
             arrayOfDiffsTemp.sort((a,b) => a-b)
@@ -76,15 +74,26 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
                 goalDiffAdjusted = goalDiffAdjusted + .1
                 projectedAvgDiff = calculateProjectedAvgDiff(goalDiffAdjusted, rounds, diffArray)
             } else {
-                projectedAvgDiffFound = false
-                
-                res.status(200).send({
-                    projectedAvg: projectedAvgDiff.avg,
-                    arrayEx: projectedAvgDiff.array,
-                    course: courseArray
-                })
+                projectedAvgDiffIsNotYetFound = false
             }
         }
+
+
+
+
+        // (113 / Slope Rating) x (Adjusted Gross Score - Course Rating - PCC adjustment) = Diff
+        // Adjusted Gross Score = Diff / (113 / Slope Rating) + Course Rating + PCC adjustment
+
+        for (i = 0; i < courseArray.length; i++) {
+            courseArray[i].targetScore = Math.round(goalDiffAdjusted / (113 / courseArray[i].slope) + courseArray[i].rating)
+        }
+
+
+        res.status(200).send({
+            projectedAvg: projectedAvgDiff.avg,
+            arrayEx: projectedAvgDiff.array,
+            course: courseArray
+        })
 
         // Need to write a function that turns a diff into scores shot at popular courses
 
