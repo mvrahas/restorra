@@ -19,13 +19,19 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         }
     }
 
+    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin=2019-08-08&date_end=2020-08-08'
+
+
     try {
         const diffArray = []
         const courseArrayBrev = []
         const courseArray = []
+        const indexArray = []
 
         const response = await axios.get(url, requestOptions)
+        const response2 = await axios.get(url2)
         const dataObject = response.data
+        const indexListDataObject = response2.data
 
         for (i = 0; i < dataObject.scores.length; i++) {
             
@@ -40,6 +46,13 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
                     slope: dataObject.scores[i].slope_rating
                 })
             }
+        }
+        
+        for (i = 0; i < indexListDataObject.handicap_revisions.length; i++) {
+            indexArray.push({
+                date: indexListDataObject.handicap_revisions[i].RevDate,
+                index: indexListDataObject.handicap_revisions[i].LowHIDisplay
+            })
         }
 
         debugger
@@ -92,7 +105,8 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         res.status(200).send({
             projectedAvg: projectedAvgDiff.avg,
             arrayEx: projectedAvgDiff.array,
-            course: courseArray
+            course: courseArray,
+            indexArray: indexArray
         })
 
         // Need to write a function that turns a diff into scores shot at popular courses
@@ -100,33 +114,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
     } catch(e) {
         res.status(500).send(e)
     }
-
-
-    const output = {
-        current_handicap: 11,
-        goal_handicap: 9.0,
-        rounds_needed: 3,
-        courses : [
-            {course: "Wilshire CC", score: 88},
-            {course: "Newton Comm", score: 84},
-            {course: "Rancho Park", score: 86},
-        ]
-    }
     
   })
-
-
-
-router.get('/analyze/index-history', authenticate, async (req, res) => {
-
-    const url = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+req.query.date_begin+'&date_end='+req.query.date_end
-
-    try {
-        const response = await axios.get(url)
-        res.status(200).send(response.data)
-    } catch(e) {
-        res.status(500).send(e)
-    }
-})
 
 module.exports = router
