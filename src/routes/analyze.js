@@ -10,6 +10,12 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
     const rounds = req.query.rounds
     const roundsToFetch = 20 - rounds
     const goalDiff = parseFloat(req.query.goal)
+
+    let date_ob = new Date();
+    let date = ("0" + date_ob.getDate()).slice(-2)
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
+    let year = date_ob.getFullYear()
+    let lastYear = date_ob.getFullYear() - 1
     
     //const url = 'https://api2.ghin.com/api/v1/golfers/'+req.user.ghin_number+'/scores.json?'
     const url = 'https://api2.ghin.com/api/v1/scores.json?golfer_id='+req.user.ghin_number+'&offset=0&limit='+roundsToFetch+'&statuses=Validated'
@@ -19,8 +25,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         }
     }
 
-    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin=2019-08-08&date_end=2020-08-08'
-
+    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+ year + '-' + month + '-' + date +'&date_end='+ lastYear + '-' + month + '-' + date
 
     try {
         const diffArray = []
