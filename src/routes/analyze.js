@@ -25,7 +25,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         }
     }
 
-    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+ year + '-' + month + '-' + date +'&date_end='+ lastYear + '-' + month + '-' + date
+    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+ lastYear + '-' + month + '-' + date + '&date_end=' + year + '-' + month + '-' + date
 
     try {
         const diffArray = []
@@ -37,6 +37,8 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         const response2 = await axios.get(url2)
         const dataObject = response.data
         const indexListDataObject = response2.data
+
+        const hcp_index = indexListDataObject.handicap_revisions[0].LowHIDisplay
 
         for (i = 0; i < dataObject.scores.length; i++) {
             
@@ -59,8 +61,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
                 index: indexListDataObject.handicap_revisions[i].LowHIDisplay
             })
         }
-
-        debugger
 
         const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
             var arrayOfDiffsTemp = [...arrayOfDiffs]
@@ -106,15 +106,13 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             courseArray[i].targetScore = Math.round(goalDiffAdjusted / (113 / courseArray[i].slope) + courseArray[i].rating)
         }
 
-
         res.status(200).send({
-            projectedAvg: projectedAvgDiff.avg,
-            arrayEx: projectedAvgDiff.array,
+            currentIndex: hcp_index,
+            projectedIndex: projectedAvgDiff.avg,
+            //arrayEx: projectedAvgDiff.array,
             course: courseArray,
             indexArray: indexArray
         })
-
-        // Need to write a function that turns a diff into scores shot at popular courses
 
     } catch(e) {
         res.status(500).send(e)

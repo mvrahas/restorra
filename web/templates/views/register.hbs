@@ -12,7 +12,7 @@
             <form class="form" id="myForm">
                 <input type="text" placeholder="name" name="name">
                 <input type="text" placeholder="email" name="email">
-                <input type="password" placeholder="password" name="password">
+                <input type="text" placeholder="ghin number" name="ghin_number">
                 <button type="submit">Login</button>
             </form>
         </div>
@@ -26,6 +26,8 @@
                 for ( var i = 0; i < myForm.length - 1; i++) {
                     body[myForm[i].name] = myForm[i].value
                 }
+
+                console.log(body)
                 
                 try {
                     const data = await post(body,'/register', false)

@@ -7,7 +7,6 @@ function getCookie(name) {
 const token = getCookie('token')
 
 get = async function(route) {
-
     const options = {
         headers: {
             "Authorization" : "Bearer " + token,
@@ -40,7 +39,6 @@ post = async function(body,route,includeAuth) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body)
-        //body: body
     }
     if(includeAuth) {
         options.headers["Authorization"] = "Bearer " + token
