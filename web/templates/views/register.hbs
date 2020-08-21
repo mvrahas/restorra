@@ -18,6 +18,7 @@
         </div>
         {{>footer}}
         <script> 
+            
             const myForm = document.getElementById("myForm")
             myForm.addEventListener('submit', async function (e) {
                 e.preventDefault()
@@ -26,18 +27,32 @@
                 for ( var i = 0; i < myForm.length - 1; i++) {
                     body[myForm[i].name] = myForm[i].value
                 }
-
-                console.log(body)
                 
                 try {
                     const data = await post(body,'/register', false)
                     document.cookie = "token=" + data.token;
                     window.open("/summary","_self")
                 } catch (e) {
-                    console.log('error')
+                    console.log(e)
                 }
 
             })
+            
+            /*
+            myForm.addEventListener('submit', async function (e) {
+
+            try {
+                //const data = await get('/users', false)
+                //document.cookie = "token=" + data.token;
+                //window.open("/summary","_self")
+                console.log('hey')
+            } catch (e) {
+                console.log(e)
+            }
+
+            })
+
+            */
         </script>
     </body>
 </html>

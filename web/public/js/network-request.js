@@ -40,20 +40,23 @@ post = async function(body,route,includeAuth) {
         },
         body: JSON.stringify(body)
     }
+    console.log(options)
+
     if(includeAuth) {
         options.headers["Authorization"] = "Bearer " + token
     }
     
     try {
         const data = await fetch(route,options)
-        const json_data = data.json()
-        if(json_data.error) {
-            return json_data.error
-        } else {
-            return json_data
-        }
+        console.log(data)
+        //const json_data = data.json()
+        //if(json_data.error) {
+        //    return json_data.error
+        //} else {
+        //    return json_data
+        //}
     } catch (e) {
-        console.log(e)
+        throw new Error(e)
     }
 
 }
