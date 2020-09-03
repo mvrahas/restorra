@@ -38,7 +38,9 @@ https://templatemo.com/tm-539-simple-house
 		</div>
 
 		<main>
-			<div class="popup-add"> </div>
+			<div id="add" class="popup-add">
+				<p class="popup-text">Rhona Hoffman Gallery</p>
+			</div>
 			<header class="row tm-welcome-section"></header>
 			<div class="tm-paging-links">
 				<nav>
@@ -273,6 +275,30 @@ https://templatemo.com/tm-539-simple-house
             | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
 		</footer>
 	</div>
+	<script> 
+	
+		const $add = document.getElementById('add')
+	
+		const tryDisplay = function() {
+			setTimeout(() => {
+				console.log('lloo')
+				if(document.documentElement.scrollTop > 300) {
+					$add.style.top = '0px'
+				} else {
+					console.log('try agian')
+					tryDisplay()
+				}
+			}, 2000)
+		}
+	
+		window.addEventListener('load', (event) => {
+			console.log('wit')
+			setTimeout(() => {
+				tryDisplay()
+			}, 4000)
+		})
+		
+		</script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/parallax.min.js"></script>
 	<script>
