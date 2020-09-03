@@ -281,6 +281,11 @@ p, address {
   font-weight: 400;
 }
 
+.resto-logo {
+  width: 80px;
+  height: 80px;
+}
+
 .tm-nav {
   text-align: right;
   margin-top: 30px;
@@ -850,4 +855,16 @@ address {
 
 .panel p {
   padding: 5px 20px 30px;
+}
+
+
+
+.popup-add {
+  position: fixed;
+  top: 0px;
+  width: calc(100vw - 40px);
+  height: 240px;
+  margin: 20px;
+  background: green;
+  z-index: 1000000;
 }
