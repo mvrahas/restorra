@@ -10,6 +10,7 @@
   "author": "telemarkus",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
     "express": "^4.17.1",
     "hbs": "^4.1.1",
     "path": "^0.12.7"
