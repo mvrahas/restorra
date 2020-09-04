@@ -25,7 +25,8 @@ app.get('/', (req, res) => {
       subtitle: response.data.config[0].restaurantSubtitle,
       restaurantlogo: response.data.config[0].restaurantLogoUrl,
       addcaption: response.data.config[0].addCaption,
-      addimage: response.data.config[0].addImageUrl
+      addimage: response.data.config[0].addImageUrl,
+      addlink: response.data.config[0].addLink
   })
 
   })
