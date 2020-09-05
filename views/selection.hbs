@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{{name}}</title>
+	<style> 
+
+		.container {
+			width: 100%;
+		}
+		.item-entry {
+			position: relative;
+			width: calc(100% - 40px);
+			margin: 10px;
+			height: 200px;
+			background-color: lightgrey;
+			border-radius: 5px;
+		}
+		.text {
+			position: absolute;
+			top: 50%;
+			text-align: center;
+			font-size: 24px;
+			background-color: green;
+		}
+	</style>
+</head>
+
+<body> 
+
+	<div class="container">
+		<h3> Select {{type}} </h3>
+        {{#each items}}
+		<a href="{{nextLink}}{{this.type}}={{this.id}}">
+        <div class="item-entry">
+            <h3 class="text">{{this.title}}</h3>
+        </div>
+		</a>
+        {{/each}}
+	</div>
+
+</body>
+</html>
