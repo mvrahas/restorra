@@ -14,10 +14,26 @@ app.set('views', viewsPath)
 
 app.get('/menu', async (req, res) => {
 
-  const restaurantIndex = parseInt(req.query.restaurant) - 2 || 0
-  const addIndex = parseInt(req.query.add) - 2 || 0
 
   try {
+
+    const response0 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default')
+    const defaultAddIndex = response0.data.default[0].restaurantId
+    const defaultRestaurantIndex = response0.data.default[0].addId
+
+    const restaurantIndex = parseInt(req.query.restaurant) - 2 || defaultRestaurantIndex
+    const addIndex = parseInt(req.query.add) - 2 || defaultAddIndex
+
+
+    let url = 'https://api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default/2';
+    let body = {
+      default: {
+        restaurantId: restaurantIndex,
+        addId: addIndex
+      }
+    }
+    await axios.put(url, body)
+
     const response1 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/restaurants')
     const restaurant = response1.data.restaurants[restaurantIndex]
     const response2 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
