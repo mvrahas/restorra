@@ -18,8 +18,8 @@ app.get('/menu', async (req, res) => {
   try {
 
     const response0 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default')
-    const defaultAddIndex = response0.data.default[0].restaurantId
-    const defaultRestaurantIndex = response0.data.default[0].addId
+    const defaultAddIndex = response0.data.default[0].addId
+    const defaultRestaurantIndex = response0.data.default[0].restaurantId
 
     const restaurantIndex = parseInt(req.query.restaurant) - 2 || defaultRestaurantIndex
     const addIndex = parseInt(req.query.add) - 2 || defaultAddIndex
