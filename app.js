@@ -119,6 +119,33 @@ app.get('/selectadd', async (req, res) => {
 
 
 
+app.get('/insertadds', (req, res) => {
+  //axios.get('http://www.kayak.com')
+  axios.get('http://www.bandofbohemia.com/menu')
+  .then(function (response) {
+      console.log(response.data.length)
+
+      var a = response.data;
+      var b = "<div style='display: block; position: fixed; top: 0px; background-color:red; width: 100px; height: 100px; z-index:100000000000000;'>This is the shit</div>";
+      var position = 79300
+      var output = [a.slice(0, position), b, a.slice(position)].join('');
+      console.log(output);
+      res.send(output);
+  })
+  .catch(function (error) {
+      res.send(error);
+  })
+  .then(function () {
+    // always executed
+});
+
+})
+
+
+
+
+
+
 app.use(express.static('public'))
 
 app.listen(port, () => {
