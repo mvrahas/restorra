@@ -1,6 +1,6 @@
 # resto-adds
 
-Download NodeJS For Windows following these instructions. [link][https://www.twilio.com/blog/starting-from-zero-node-js-windows-10] 
+Download NodeJS For Windows following these instructions. https://www.twilio.com/blog/starting-from-zero-node-js-windows-10
 
 Download the source code for the project and unzip it
 
