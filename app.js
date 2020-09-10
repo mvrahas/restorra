@@ -76,6 +76,7 @@ app.get('/selectrestaurant', async (req, res) => {
 
     const response = await axios.get('https://api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/restaurants')
     const restaurants = response.data.restaurants
+
     for (var i=0; i < restaurants.length; i++) {
       restaurants[i].nextLink = nextLink
       restaurants[i].type = type
@@ -118,16 +119,24 @@ app.get('/selectadd', async (req, res) => {
 })
 
 
-
 app.get('/insertadds', (req, res) => {
-  //axios.get('http://www.kayak.com')
-  axios.get('http://www.bandofbohemia.com/menu')
+
+  // http://www.bandofbohemia.com/menu
+  // https://www.kayak.com/
+  // http://shabu-shabu-zen.com/menu
+
+  //https://www.hamasushi.com/menus
+
+
+  const menuURL = req.query.menu
+
+  axios.get(menuURL)
   .then(function (response) {
       console.log(response.data.length)
 
       var a = response.data;
-      var b = "<div style='display: block; position: fixed; top: 0px; background-color:red; width: 100px; height: 100px; z-index:100000000000000;'>This is the shit</div>";
-      var position = 79300
+      var b = "<script src='/js/insertadd.js'></script>";
+      var position = response.data.length - 8
       var output = [a.slice(0, position), b, a.slice(position)].join('');
       console.log(output);
       res.send(output);
