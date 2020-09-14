@@ -17,22 +17,16 @@ app.get('/menu', async (req, res) => {
 
   try {
 
-    console.log('hey')
 
     const response0 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default')
     const defaultAddIndex = response0.data.default[0].addId + 2
     const defaultRestaurantIndex = response0.data.default[0].restaurantId + 2
 
-    console.log(defaultAddIndex)
-    console.log(defaultRestaurantIndex)
-    console.log(parseInt(req.query.restaurant))
-    console.log(parseInt(req.query.add))
 
 
     var restaurantIndex = parseInt(req.query.restaurant) || defaultRestaurantIndex
     var addIndex = parseInt(req.query.add) || defaultAddIndex
-    console.log(restaurantIndex)
-    console.log(addIndex)
+
     restaurantIndex = restaurantIndex - 2
     addIndex = addIndex - 2
 
@@ -132,13 +126,11 @@ app.get('/insertadds', (req, res) => {
 
   axios.get(menuURL)
   .then(function (response) {
-      console.log(response.data.length)
 
       var a = response.data;
       var b = "<script src='/js/insertadd.js'></script>";
       var position = response.data.length - 8
       var output = [a.slice(0, position), b, a.slice(position)].join('');
-      console.log(output);
       res.send(output);
   })
   .catch(function (error) {
