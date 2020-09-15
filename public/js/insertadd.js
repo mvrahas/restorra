@@ -18,21 +18,25 @@ let $addCaptionLink = document.createElement('A')
                 $add.style.position = 'fixed'
                 $add.style.bottom = '-300px'
                 $add.style.width = 'calc(100vw - 40px)'
-                $add.style.height = '200px'
+                $add.style.height = '160px'
                 $add.style.margin = '20px'
                 $add.style.backgroundImage = 'url('+currentAdd.addImageUrl+')'
                 $add.style.backgroundSize = 'cover'
                 $add.style.zIndex = '1000000'
                 $add.style.transition = 'bottom 1s'
+                $add.style.borderRadius = '7px'
                 $add.id = 'testadd'
                 $addCaptionLink.appendChild($add);
 
                 let addCaptionText = document.createTextNode(currentAdd.title)
                 $addCaption.id = 'testcaption'
                 $addCaption.style.color = 'white'
+                $addCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
+                $addCaption.style.fontSize = '18px'
                 $addCaption.style.background = 'black'
                 $addCaption.style.padding = '0 0 0 3px'
                 $addCaption.style.zIndex = '2000000'
+                $addCaption.style.borderRadius = '7px'
                 $addCaption.appendChild(addCaptionText)
                 $add.appendChild($addCaption)
 
