@@ -12,6 +12,10 @@ app.set('views', viewsPath)
 
 
 
+
+
+
+
 app.get('/menu', async (req, res) => {
 
 
@@ -120,6 +124,11 @@ app.get('/insertadds', (req, res) => {
   // http://shabu-shabu-zen.com/menu
 
   //https://www.hamasushi.com/menus
+  //resto-adds.herokuapp.com/insertadds?menu=http://shabu-shabu-zen.com/menu
+  //http://resto-adds.herokuapp.com/insertadds?menu=%20https://jeffersontap.com/menu
+  //resto-adds.herokuapp.com/insertadds?menu=https://www.swiftandsonschicago.com/menu.php
+  //resto-adds.herokuapp.com/insertadds?menu=https://www.toasttab.com/tallula-s/v3
+  //setup ssl https://medium.com/@franxyzxyz/setting-up-free-https-with-heroku-ssl-and-lets-encrypt-80cf6eac108e
 
 
   const menuURL = req.query.menu
@@ -141,6 +150,7 @@ app.get('/insertadds', (req, res) => {
 });
 
 })
+
 
 
 
