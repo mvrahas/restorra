@@ -155,14 +155,13 @@ app.get('/insertadds', (req, res) => {
 
 
 
-app.get('/insertaddsiframe', (req, res) => {
+app.get('/insertaddsiframe', async (req, res) => {
 
   const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
 
 
-  axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
-  .then(function (response) {
-
+  try {
+    const response = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
     var randSelection = Math.floor(Math.random() * response.data.adds.length)
     var currentAdd = response.data.adds[randSelection]
 
@@ -172,16 +171,10 @@ app.get('/insertaddsiframe', (req, res) => {
       link: currentAdd.addLink,
       imageURL: currentAdd.addImageUrl
     });
-
-
-  })
-  .catch(function (error) {
-      res.send(error);
-  })
-  .then(function () {
-    // always executed
-});
-
+  } catch (e) {
+    res.send(e)
+  }
+  
 })
 
 
