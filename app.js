@@ -1,14 +1,67 @@
-const path = require('path')
-const express = require('express')
 const axios = require('axios')
-var hbs = require('hbs')
+
+// Golf App
+
+const express = require('express')
 const app = express()
+
+
+// API Initialization
+
+const _ = require('lodash')
+const config = require('./config.json')
+const environment = process.env.DEPLOYMENT_ENV || 'local'
 const port = process.env.PORT || 3000
-const viewsPath = path.join(__dirname, '/views')
+const updated_config_based_on_environment = _.merge(config.local, config[environment])
+global.gConfig = updated_config_based_on_environment
+const chalk = require('chalk')
+const addRouter = require('./routes/add')
+const advertiserRouter = require('./routes/advertiser')
+const mongooseConnection = require('./mongooseconnection')
+
+app.use(express.json())
+app.use(addRouter)
+app.use(advertiserRouter)
 
 
+// Web App Initialization
+
+const hbs = require('hbs')
+const path = require('path')
+const publicDirectoryPath = path.join(__dirname, './public')
+const viewsPath = path.join(__dirname, './views')
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
+app.use(express.static(publicDirectoryPath))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,8 +210,17 @@ app.get('/insertadds', (req, res) => {
 
 
 
-app.use(express.static('public'))
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+
+
+
+
+
+
+// Start Server
+
+app.listen(port, () => {console.log(chalk.green(global.gConfig.APPLICATION_TITLE + " " + global.gConfig.APPLICATION_VERSION + ' is up on ' + port))})
+
+app.get('/', (req, res) => {
+  res.send("Hello World!")
 })

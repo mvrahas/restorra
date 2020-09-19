@@ -1,45 +1,27 @@
 const mongoose = require('mongoose')
 
-var scoreSchema = new mongoose.Schema({
-  score: {
-    type: Number,
-    required: true
+var addSchema = new mongoose.Schema({
+  caption: {
+    type: String,
+    required: true,
+    default: 'Add Caption'
   },
-  player: {
+  advertiser: {
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User',
+    ref: 'Advertiser',
     required: true
   },
-  type: {
+  imageurl: {
     type: String,
-    required: false
+    required: false,
+    default: 'https://img.grouponcdn.com/deal/cUUZE66o46Qg1GCWtu49/Fp-4764x2858/v1/c700x420.jpg'
   },
-  course: {
+  targetlink: {
     type: String,
-    required: false
-  },
-  courseRating: {
-    type: Number,
-    required: true
-  },
-  courseSlope: {
-    type: Number,
-    required: true
-  },
-  putts: {
-    type: Number,
-    required: false
-  },
-  fairways: {
-    type: Number,
-    required: false
-  },
-  greens: {
-    type: Number,
     required: false
   }
 });
   
-var Score = mongoose.model('Score', scoreSchema);
+var Add = mongoose.model('Add', addSchema);
 
-module.exports = Score
+module.exports = Add
