@@ -157,7 +157,7 @@ app.get('/insertadds', (req, res) => {
 
 app.get('/insertaddsiframe', (req, res) => {
 
-  const menuURL = req.query.menu
+  const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
 
 
   axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
@@ -167,6 +167,7 @@ app.get('/insertaddsiframe', (req, res) => {
     var currentAdd = response.data.adds[randSelection]
 
     res.render('frame', {
+      menuURL: menuURL,
       title: currentAdd.title,
       link: currentAdd.addLink,
       imageURL: currentAdd.addImageUrl
