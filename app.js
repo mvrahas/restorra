@@ -113,14 +113,25 @@ app.get('/selectadd', async (req, res) => {
 })
 
 
-app.get('/insertadds', (req, res) => {
+
+
+
+
+  // TARGET MENUS
 
   // http://www.bandofbohemia.com/menu
   // https://www.kayak.com/
   // http://shabu-shabu-zen.com/menu
+  // https://jeffersontap.com/menu
+  // https://www.hamasushi.com/menus
+  // https://qrcodes.pro/0WEsiN
+  // https://www.thecheesecakefactory.com/media/menus/TCF_TakeOut_SantaMonica_0820.pdf
 
-  //https://www.hamasushi.com/menus
 
+
+
+
+app.get('/insertadds', (req, res) => {
 
   const menuURL = req.query.menu
 
@@ -141,6 +152,39 @@ app.get('/insertadds', (req, res) => {
 });
 
 })
+
+
+
+app.get('/insertaddsiframe', (req, res) => {
+
+  const menuURL = req.query.menu
+
+
+  axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
+  .then(function (response) {
+
+    var randSelection = Math.floor(Math.random() * response.data.adds.length)
+    var currentAdd = response.data.adds[randSelection]
+
+    res.render('frame', {
+      title: currentAdd.title,
+      link: currentAdd.addLink,
+      imageURL: currentAdd.addImageUrl
+    });
+
+
+  })
+  .catch(function (error) {
+      res.send(error);
+  })
+  .then(function () {
+    // always executed
+});
+
+})
+
+
+
 
 
 
