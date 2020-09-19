@@ -115,23 +115,7 @@ app.get('/selectadd', async (req, res) => {
 
 
 
-
-
-  // TARGET MENUS
-
-  // http://www.bandofbohemia.com/menu
-  // https://www.kayak.com/
-  // http://shabu-shabu-zen.com/menu
-  // https://jeffersontap.com/menu
-  // https://www.hamasushi.com/menus
-  // https://qrcodes.pro/0WEsiN
-  // https://www.thecheesecakefactory.com/media/menus/TCF_TakeOut_SantaMonica_0820.pdf
-
-
-
-
-
-app.get('/insertadds', (req, res) => {
+app.get('/insertaddsinline', (req, res) => {
 
   const menuURL = req.query.menu
 
@@ -155,7 +139,7 @@ app.get('/insertadds', (req, res) => {
 
 
 
-app.get('/insertaddsiframe', async (req, res) => {
+app.get('/insertaddsfixed', async (req, res) => {
 
   const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
 
@@ -174,7 +158,7 @@ app.get('/insertaddsiframe', async (req, res) => {
   } catch (e) {
     res.send(e)
   }
-  
+
 })
 
 
