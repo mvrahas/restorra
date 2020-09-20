@@ -24,7 +24,6 @@ app.use(advertiserRouter)
 
 // Web App Initialization
 
-const hbs = require('hbs')
 const path = require('path')
 const publicDirectoryPath = path.join(__dirname, './public')
 const viewsPath = path.join(__dirname, './views')
