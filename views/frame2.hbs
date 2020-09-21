@@ -38,7 +38,7 @@
         z-index: 2000000;
     }
 
-    button {
+    #doit {
         position: fixed;
         bottom: 20px;
         z-index: 3000000000;
@@ -61,17 +61,12 @@
 
     document.addEventListener('click', onMyFrameLoad)
     */
-
-
-    var doIt = function () {
-        console.log('hey')
-    }
 </script>
 </head>
 <body>
 
     <iframe id="inlineFrameExample" src={{menuURL}}></iframe>
-    <button onclick="doIt()"> That's Right</button>
+    <div id="doit" onclick="doIt()"> That's Right</div>
 
 </body>
 
@@ -87,11 +82,8 @@
             console.log(element)
         })
 
-        */
 
     var $iframe = document.getElementById('inlineFrameExample')
-
-
     var win = $iframe.contentWindow;
     var doc = $iframe.contentDocument? $iframe.contentDocument: $iframe.contentWindow.document;
     
@@ -105,6 +97,16 @@
     console.log(ele)
 
 }
+
+*/
+
+    var $iframe = document.getElementById('inlineFrameExample')
+    var win = $iframe.contentWindow;
+
+    var doIt = function () {
+        var ele = win.document.getElementById('lightbox');
+        console.log(ele[0])
+    }
 
 </script>
 

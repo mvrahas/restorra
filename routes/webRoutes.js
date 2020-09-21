@@ -106,28 +106,6 @@ router.get('/menu', async (req, res) => {
   
   
   
-  router.get('/insertaddsfixedjs', (req, res) => {
-  
-    const menuURL = req.query.menu
-  
-    axios.get(menuURL)
-    .then(function (response) {
-  
-        var a = response.data;
-        var b = "<script src='/js/insertadd.js'></script>";
-        var position = response.data.length - 8
-        var output = [a.slice(0, position), b, a.slice(position)].join('');
-        res.send(output);
-    })
-    .catch(function (error) {
-        res.send(error);
-    })
-    .then(function () {
-      // always executed
-  });
-  
-  })
-  
   
   
   router.get('/insertaddsfixed', async (req, res) => {
@@ -157,7 +135,7 @@ router.get('/menu', async (req, res) => {
 
 
 
-  router.get('/insertaddsinline', async (req, res) => {
+  router.get('/insertaddsinlineframe', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
@@ -176,6 +154,31 @@ router.get('/menu', async (req, res) => {
     } catch (e) {
       res.send(e)
     }
+  
+  })
+
+
+
+
+  router.get('/insertaddsinlinejs', (req, res) => {
+  
+    const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
+  
+    axios.get(menuURL)
+    .then(function (response) {
+  
+        var a = response.data;
+        var b = "<script src='/js/insertaddinline.js'></script>";
+        var position = response.data.length - 8
+        var output = [a.slice(0, position), b, a.slice(position)].join('');
+        res.send(output);
+    })
+    .catch(function (error) {
+        res.send(error);
+    })
+    .then(function () {
+      // always executed
+  });
   
   })
 
