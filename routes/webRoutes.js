@@ -106,7 +106,7 @@ router.get('/menu', async (req, res) => {
   
   
   
-  router.get('/insertaddsinline', (req, res) => {
+  router.get('/insertaddsfixedjs', (req, res) => {
   
     const menuURL = req.query.menu
   
@@ -152,6 +152,33 @@ router.get('/menu', async (req, res) => {
   
   })
   
+
+
+
+
+
+  router.get('/insertaddsinline', async (req, res) => {
+  
+    const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
+  
+  
+    try {
+      const response = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
+      var randSelection = Math.floor(Math.random() * response.data.adds.length)
+      var currentAdd = response.data.adds[randSelection]
+  
+      res.render('frame2', {
+        menuURL: menuURL,
+        title: currentAdd.title,
+        link: currentAdd.addLink,
+        imageURL: currentAdd.addImageUrl
+      });
+    } catch (e) {
+      res.send(e)
+    }
+  
+  })
+
   
   
   

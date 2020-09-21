@@ -42,3 +42,5 @@ app.listen(port, () => {console.log(chalk.green(global.gConfig.APPLICATION_TITLE
 app.get('/', (req, res) => {
   res.send("Hello World!")
 })
+
+
