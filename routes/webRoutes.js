@@ -1,6 +1,7 @@
 const express = require('express')
 const axios = require('axios')
 const router = express.Router()
+var path = require('path');
 
 
 router.get('/menu', async (req, res) => {
@@ -139,7 +140,6 @@ router.get('/menu', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
-  
     try {
       const response = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
       var randSelection = Math.floor(Math.random() * response.data.adds.length)
@@ -183,6 +183,30 @@ router.get('/menu', async (req, res) => {
   })
 
   
+
+
+  router.get('/insertaddsfixedjs', (req, res) => {
   
+    const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
+  
+    axios.get(menuURL)
+    .then(function (response) {
+  
+        var a = response.data;
+        var b = "<script src='/js/insertadd.js'></script>";
+        var position = response.data.length - 8
+        var output = [a.slice(0, position), b, a.slice(position)].join('');
+        res.send(output);
+    })
+    .catch(function (error) {
+        res.send(error);
+    })
+    .then(function () {
+      // always executed
+  });
+  
+  })
+
+
   
   module.exports = router
