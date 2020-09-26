@@ -9,7 +9,7 @@ var addSchema = new mongoose.Schema({
   advertiser: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Advertiser',
-    required: true
+    required: false
   },
   imageurl: {
     type: String,
