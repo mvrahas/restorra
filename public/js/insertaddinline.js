@@ -12,10 +12,7 @@ let $addCaptionLink = document.createElement('A')
                 var randSelection = Math.floor(Math.random() * data.length)
                 var currentAdd = data[randSelection]
 
-                
-
                 $addCaptionLink.href = currentAdd.link
-
                 $add.style.position = 'relative'
                 $add.style.width = '300px'
                 $add.style.height = '160px'
