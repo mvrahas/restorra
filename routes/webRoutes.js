@@ -17,13 +17,14 @@ router.get('/menu', async (req, res) => {
       })
   
 })
-  
+
+
   router.get('/insertaddsfixed', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
-  
+
     try {
-      const response = await axios.get('/adds')
+      const response = await axios.get('http://'+ req.rawHeaders[1] +'/adds')
       var randSelection = Math.floor(Math.random() * response.data.length)
       var currentAdd = response.data[randSelection]
   
@@ -47,7 +48,7 @@ router.get('/menu', async (req, res) => {
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
     try {
-      const response = await axios.get('/adds')
+      const response = await axios.get('http://'+ req.rawHeaders[1] +'/adds')
       var randSelection = Math.floor(Math.random() * response.data.length)
       var currentAdd = response.data[randSelection]
   
@@ -62,8 +63,6 @@ router.get('/menu', async (req, res) => {
     }
   
   })
-
-
 
 
   router.get('/insertaddsinlinejs', (req, res) => {
