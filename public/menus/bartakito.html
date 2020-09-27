@@ -755,28 +755,28 @@ let $addCaptionLink = document.createElement('A')
     window.addEventListener('load', async (event) => {
             var ele = document.getElementsByClassName('et_pb_row_1')
             
-            fetch('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
+            fetch('/adds')
             .then(response => response.json())
             .then((data) => {
-                var randSelection = Math.floor(Math.random() * data.adds.length)
-                var currentAdd = data.adds[randSelection]
+                var randSelection = Math.floor(Math.random() * data.length)
+                var currentAdd = data[randSelection]
 
                 
 
-                $addCaptionLink.href = currentAdd.addLink
+                $addCaptionLink.href = currentAdd.link
 
                 $add.style.position = 'relative'
                 $add.style.width = '300px'
                 $add.style.height = '160px'
                 $add.style.margin = '0px 0px 30px 0px'
-                $add.style.backgroundImage = 'url('+currentAdd.addImageUrl+')'
+                $add.style.backgroundImage = 'url('+currentAdd.image_url+')'
                 $add.style.backgroundSize = 'cover'
                 $add.style.zIndex = '1000000'
                 $add.style.borderRadius = '7px'
                 $add.id = 'testadd'
                 $addCaptionLink.appendChild($add);
 
-                let addCaptionText = document.createTextNode(currentAdd.title)
+                let addCaptionText = document.createTextNode(currentAdd.caption)
                 $addCaption.id = 'testcaption'
                 $addCaption.style.color = 'white'
                 $addCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
