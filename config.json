@@ -3,7 +3,8 @@
         "APPLICATION_VERSION": "0.1.0",
         "APPLICATION_TITLE": "Resto Adds",
         "db_connection_string" : "mongodb://127.0.0.1:27017",
-        "db_name" : "resto-adds"
+        "db_name" : "resto-adds",
+        "amplitude_api_key" : "0f10c615555664f4e9ee4308d2e108d4"
     },
     "development" : {
         "db_connection_string" : "mongodb+srv://telemarkus:VZrECxVuunjmbVGv@telemarkus.rp9d8.gcp.mongodb.net/resto-adds-dev?retryWrites=true&w=majority",
@@ -11,6 +12,7 @@
     },
     "production" : {
         "db_connection_string" : "mongodb+srv://telemarkus:VZrECxVuunjmbVGv@telemarkus.rp9d8.gcp.mongodb.net/resto-adds-prod?retryWrites=true&w=majority",
-        "db_name" : "resto-adds-prod"
+        "db_name" : "resto-adds-prod",
+        "amplitude_api_key" : "d160d78556848555913099faab52266"
     }
 }

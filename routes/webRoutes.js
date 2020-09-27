@@ -31,7 +31,9 @@ router.get('/menu', async (req, res) => {
         menuURL: menuURL,
         title: currentAdd.caption,
         link: currentAdd.link,
-        imageURL: currentAdd.image_url
+        imageURL: currentAdd.image_url,
+        restaurantName: "wedidittest",
+        amplitudeAPIKey: '0f10c615555664f4e9ee4308d2e108d4'
       });
     } catch (e) {
       res.send(e)
