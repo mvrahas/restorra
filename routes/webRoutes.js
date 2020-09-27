@@ -5,125 +5,33 @@ var path = require('path');
 
 
 router.get('/menu', async (req, res) => {
-
-
-    try {
-  
-  
-      const response0 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default')
-      const defaultAddIndex = response0.data.default[0].addId + 2
-      const defaultRestaurantIndex = response0.data.default[0].restaurantId + 2
-  
-  
-  
-      var restaurantIndex = parseInt(req.query.restaurant) || defaultRestaurantIndex
-      var addIndex = parseInt(req.query.add) || defaultAddIndex
-  
-      restaurantIndex = restaurantIndex - 2
-      addIndex = addIndex - 2
-  
-  
-      let url = 'https://api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/default/2';
-      let body = {
-        default: {
-          restaurantId: restaurantIndex,
-          addId: addIndex
-        }
-      }
-      await axios.put(url, body)
-  
-      const response1 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/restaurants')
-      const restaurant = response1.data.restaurants[restaurantIndex]
-      const response2 = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
-      const add = response2.data.adds[addIndex]
   
       res.render('index', {
-        background: restaurant.restaurantBackgroundUrl,
-        name: restaurant.title,
-        subtitle: restaurant.restaurantSubtitle,
-        restaurantlogo: restaurant.restaurantLogoUrl,
-        addcaption: add.title,
-        addimage: add.addImageUrl,
-        addlink: add.addLink
-      })
-    } catch {
-  
-    }
-  
-  })
-  
-  
-  router.get('/selectrestaurant', async (req, res) => {
-    
-    const nextLink = "/selectadd?"
-    const type = "restaurant"
-  
-    try {
-  
-      const response = await axios.get('https://api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/restaurants')
-      const restaurants = response.data.restaurants
-  
-      for (var i=0; i < restaurants.length; i++) {
-        restaurants[i].nextLink = nextLink
-        restaurants[i].type = type
-      }
-      res.render('selection', {
-        items: restaurants,
-        type: type
+        background: 'https://images.squarespace-cdn.com/content/v1/54f74c5ee4b05bbdbef997f4/1436220105808-BLNDJEQ467JCIIW0VZ2V/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/BrewBokeh25.jpg?format=2500w',
+        name: 'Half Acre Brewing Co',
+        subtitle: 'Chicago, IL',
+        restaurantlogo: 'https://images.squarespace-cdn.com/content/54f74c5ee4b05bbdbef997f4/1562615459208-P37AUVP0IM5NJHEU1UU4/HABC_Owlhead-GREY.png?format=750w&content-type=image%2Fpng',
+        addcaption: 'Rhona Hoffmannn Gallery',
+        addimage: 'https://media.timeout.com/images/100824847/1372/772/image.jpg',
+        addlink: 'https://www.rhoffmangallery.com/'
       })
   
-    } catch (e) {
-      res.send(e)
-    }
-  
-  })
-  
-  router.get('/selectadd', async (req, res) => {
-    const nextLink = "/menu?restaurant=" + req.query.restaurant + "&"
-    const type = "add"
-  
-    try {
-  
-      const response = await axios.get('https://api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
-      const adds = response.data.adds
-      for (var i=0; i < adds.length; i++) {
-        adds[i].nextLink = nextLink
-        adds[i].type = type
-      }
-      res.render('selection', {
-        items: adds,
-        type: type
-      })
-  
-    } catch (e) {
-      res.send(e)
-    }
-  
-  
-  
-    
-  })
-  
-  
-  
-  
-  
+})
   
   router.get('/insertaddsfixed', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
-  
     try {
-      const response = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
-      var randSelection = Math.floor(Math.random() * response.data.adds.length)
-      var currentAdd = response.data.adds[randSelection]
+      const response = await axios.get('/adds')
+      var randSelection = Math.floor(Math.random() * response.data.length)
+      var currentAdd = response.data[randSelection]
   
       res.render('frame', {
         menuURL: menuURL,
-        title: currentAdd.title,
-        link: currentAdd.addLink,
-        imageURL: currentAdd.addImageUrl
+        title: currentAdd.caption,
+        link: currentAdd.link,
+        imageURL: currentAdd.image_url
       });
     } catch (e) {
       res.send(e)
@@ -134,22 +42,20 @@ router.get('/menu', async (req, res) => {
 
 
 
-
-
   router.get('/insertaddsinlineframe', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
     try {
-      const response = await axios.get('https://v2-api.sheety.co/c8d0b3b214a817554114d96220e3c881/restoAdds/adds')
-      var randSelection = Math.floor(Math.random() * response.data.adds.length)
-      var currentAdd = response.data.adds[randSelection]
+      const response = await axios.get('/adds')
+      var randSelection = Math.floor(Math.random() * response.data.length)
+      var currentAdd = response.data[randSelection]
   
       res.render('frame2', {
         menuURL: menuURL,
-        title: currentAdd.title,
-        link: currentAdd.addLink,
-        imageURL: currentAdd.addImageUrl
+        title: currentAdd.caption,
+        link: currentAdd.link,
+        imageURL: currentAdd.image_url
       });
     } catch (e) {
       res.send(e)

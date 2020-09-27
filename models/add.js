@@ -9,16 +9,17 @@ var addSchema = new mongoose.Schema({
   advertiser: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Advertiser',
-    required: true
+    required: false
   },
-  imageurl: {
+  image_url: {
     type: String,
     required: false,
-    default: 'https://img.grouponcdn.com/deal/cUUZE66o46Qg1GCWtu49/Fp-4764x2858/v1/c700x420.jpg'
+    default: 'https://advertisements.s3.amazonaws.com/10743.jpg'
   },
-  targetlink: {
+  link: {
     type: String,
-    required: false
+    required: false,
+    default: 'https://www.apple.com/'
   }
 });
   
