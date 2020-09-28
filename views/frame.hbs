@@ -33,20 +33,5 @@
 
     <article id="config-data" data-restaurantname={{restaurantName}} data-amplitudeapikey={{amplitudeAPIKey}}></article>
 </body>
-<script>
-
-    const article = document.querySelector('#config-data');
-
-    amplitude.getInstance().init(article.dataset.amplitudeapikey);
-    var eventProperties = {
-        'restaurant_name': article.dataset.restaurantname
-    }
-
-    window.addEventListener('load', async (event) => {
-        amplitude.getInstance().logEvent('Menu_Viewed', eventProperties);
-        console.log(restaurantName)
-    })
-
-</script>
-
+<script src="/js/amplitude-menuviewed.js"></script>
 </html>

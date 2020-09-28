@@ -28,11 +28,12 @@ const path = require('path')
 const publicDirectoryPath = path.join(__dirname, './public')
 const viewsPath = path.join(__dirname, './views')
 const webRouter = require('./routes/webRoutes')
+const pocRouter = require('./routes/pocRoutes')
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 app.use(webRouter)
+app.use(pocRouter)
 app.use(express.static(publicDirectoryPath))
-
 
 
 // Start Server
