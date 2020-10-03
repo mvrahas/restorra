@@ -728,7 +728,7 @@
 
 
 	</div> <!-- #page-container -->
-	<article id="config-data" data-restaurantname={{restaurantName}} data-amplitudeapikey={{amplitudeAPIKey}}></article>
+	<article id="config-data" data-restaurantname={{restaurantName}} data-amplitudeapikey={{amplitudeAPIKey}} data-addswilldisplay={{addsWillDisplay}}></article>
 
 	<script type="text/javascript">
 		var et_animation_data = [{"class":"et_pb_text_0","style":"slideBottom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"50%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_image_8","style":"slideBottom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_text_3","style":"foldTop","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"50%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_image_9","style":"slideBottom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_text_5","style":"foldTop","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"50%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_image_10","style":"slideBottom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_text_7","style":"foldTop","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"50%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_image_11","style":"slideBottom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_text_9","style":"foldTop","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"50%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_divider_2","style":"zoom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"},{"class":"et_pb_divider_3","style":"zoom","repeat":"once","duration":"1000ms","delay":"0ms","intensity":"20%","starting_opacity":"0%","speed_curve":"ease-in-out"}];
@@ -750,22 +750,22 @@ var et_pb_box_shadow_elements = [];
 	<script src="/js/amplitude-menuviewed.js"></script>
     <script> 
     
-    
 let $add = document.createElement('DIV')
 let $addCaption = document.createElement('P')
 let $addCaptionLink = document.createElement('A')
 
     window.addEventListener('load', async (event) => {
-            var ele = document.getElementsByClassName('et_pb_row_1')
+			
+		if (article.dataset.addswilldisplay == 'true') {
+			var ele = document.getElementsByClassName('et_pb_row_1')
+			console.log(ele)
             
             fetch('/adds')
             .then(response => response.json())
             .then((data) => {
                 var randSelection = Math.floor(Math.random() * data.length)
                 var currentAdd = data[randSelection]
-
                 $addCaptionLink.href = currentAdd.link
-
                 $add.style.position = 'relative'
                 $add.style.width = '300px'
                 $add.style.height = '160px'
@@ -776,7 +776,6 @@ let $addCaptionLink = document.createElement('A')
                 $add.style.borderRadius = '7px'
                 $add.id = 'testadd'
                 $addCaptionLink.appendChild($add);
-
                 let addCaptionText = document.createTextNode(currentAdd.caption)
                 $addCaption.id = 'testcaption'
                 $addCaption.style.color = 'white'
@@ -788,11 +787,9 @@ let $addCaptionLink = document.createElement('A')
                 $addCaption.style.borderRadius = '7px'
                 $addCaption.appendChild(addCaptionText)
                 $add.appendChild($addCaption)
-
                 let insertedNode = ele[0].insertBefore($addCaptionLink, ele[0].childNodes[2])
-
             })
-
+		}
     })
 
     

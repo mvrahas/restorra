@@ -9,6 +9,7 @@ var path = require('path');
     if(req.params.id == 'bartakito') {
       
       res.render('bartakito', {
+        addsWillDisplay: "false",
         restaurantName: "bartakito",
         amplitudeAPIKey: global.gConfig.amplitude_api_key
       });
