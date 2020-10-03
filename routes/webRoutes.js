@@ -4,17 +4,14 @@ const router = express.Router()
 var path = require('path');
 
 
-  router.get('/menus/:id', async (req, res) => {
-  
-    const isInline = false
+  router.get('/menu/:id', async (req, res) => {
 
-    if(isInline) {
+    if(req.params.id == 'bartakito') {
       
-      res.render('jeffersontap', {
-        restaurantName: "jtaptapnutcasetest",
+      res.render('bartakito', {
+        restaurantName: "bartakito",
         amplitudeAPIKey: global.gConfig.amplitude_api_key
       });
-
 
     } else {
 
