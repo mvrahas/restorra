@@ -1,5 +1,3 @@
-//add some here
-
 const express = require('express')
 const mongoose = require('mongoose')
 const Add = require('../models/add')

@@ -14,11 +14,13 @@ const updated_config_based_on_environment = _.merge(config.local, config[environ
 global.gConfig = updated_config_based_on_environment
 const chalk = require('chalk')
 const addRouter = require('./routes/add')
+const restaurantRouter = require('./routes/restaurant')
 const advertiserRouter = require('./routes/advertiser')
 const mongooseConnection = require('./mongooseconnection')
 
 app.use(express.json())
 app.use(addRouter)
+app.use(restaurantRouter)
 app.use(advertiserRouter)
 
 

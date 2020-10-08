@@ -5,8 +5,7 @@ const databaseName = global.gConfig.db_name
 
 //Creates the initial connection to MongoDB. A connection = a database
 
-mongoose.connect(connectionURL, { useNewUrlParser: true, dbName: databaseName, useUnifiedTopology: true }).
-  catch((error) => {console.log(error)})
+mongoose.connect(connectionURL, { useNewUrlParser: true, useCreateIndex: true, dbName: databaseName, useUnifiedTopology: true }).catch((error) => {console.log(error)})
 
 
 //Listens for errors and successful connection to MongoDB
