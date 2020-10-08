@@ -3,22 +3,25 @@ const axios = require('axios')
 const router = express.Router()
 var path = require('path');
 
+router.get('/', async (req, res) => {
+  res.send('Hello World!')
+})
 
-  router.get('/menu/:id', async (req, res) => {
+  router.get('/:id', async (req, res) => {
 
     if(req.params.id == 'bartakito') {
       
       res.render('bartakito', {
-        addsWillDisplay: "false",
+        addsWillDisplay: "true",
         restaurantName: "bartakito",
         amplitudeAPIKey: global.gConfig.amplitude_api_key
       });
 
     } else {
-
       const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
       try {
+
         const response = await axios.get('http://'+ req.rawHeaders[1] +'/adds')
         var randSelection = Math.floor(Math.random() * response.data.length)
         var currentAdd = response.data[randSelection]

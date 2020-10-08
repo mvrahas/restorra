@@ -40,8 +40,5 @@ app.use(express.static(publicDirectoryPath))
 
 app.listen(port, () => {console.log(chalk.green(global.gConfig.APPLICATION_TITLE + " " + global.gConfig.APPLICATION_VERSION + ' is up on ' + port))})
 
-app.get('/', (req, res) => {
-  res.send("Hello World!")
-})
 
 
