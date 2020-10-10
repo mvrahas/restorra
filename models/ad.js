@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-var addSchema = new mongoose.Schema({
+var adSchema = new mongoose.Schema({
   caption: {
     type: String,
     required: true,
-    default: 'Add Caption'
+    default: 'Ad Caption'
   },
   advertiser: {
     type: mongoose.Schema.Types.ObjectId, 
@@ -23,6 +23,6 @@ var addSchema = new mongoose.Schema({
   }
 });
   
-var Add = mongoose.model('Add', addSchema);
+var Ad = mongoose.model('Ad', adSchema);
 
-module.exports = Add
+module.exports = Ad

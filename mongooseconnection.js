@@ -19,4 +19,5 @@ db.once('open', function() {
 });
 
 
-// Run the following to start MongoDB locally... mongod --dbpath "C:\Users\vraha\Development\Data"
+// Run locally on PC... mongod --dbpath "C:\Users\vraha\Development\Data"
+// Run locally on Mac... mongod --dbpath "/Users/markvrahas/Development/data"

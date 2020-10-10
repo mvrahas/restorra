@@ -1,41 +1,41 @@
 
-let $add = document.createElement('DIV')
-let $addCaption = document.createElement('P')
-let $addCaptionLink = document.createElement('A')
+let $ad = document.createElement('DIV')
+let $adCaption = document.createElement('P')
+let $adCaptionLink = document.createElement('A')
 
     window.addEventListener('load', async (event) => {
             var ele = document.getElementById('main')
             
-            fetch('/adds')
+            fetch('/ads')
             .then(response => response.json())
             .then((data) => {
                 var randSelection = Math.floor(Math.random() * data.length)
-                var currentAdd = data[randSelection]
+                var currentAd = data[randSelection]
 
-                $addCaptionLink.href = currentAdd.link
-                $add.style.position = 'relative'
-                $add.style.width = '300px'
-                $add.style.height = '160px'
-                $add.style.margin = '20px'
-                $add.style.backgroundImage = 'url('+currentAdd.image_url+')'
-                $add.style.backgroundSize = 'cover'
-                $add.style.zIndex = '1000000'
-                $add.id = 'testadd'
-                $addCaptionLink.appendChild($add);
+                $adCaptionLink.href = currentAd.link
+                $ad.style.position = 'relative'
+                $ad.style.width = '300px'
+                $ad.style.height = '160px'
+                $ad.style.margin = '20px'
+                $ad.style.backgroundImage = 'url('+currentAd.image_url+')'
+                $ad.style.backgroundSize = 'cover'
+                $ad.style.zIndex = '1000000'
+                $ad.id = 'testad'
+                $adCaptionLink.appendChild($ad);
 
-                let addCaptionText = document.createTextNode(currentAdd.caption)
-                $addCaption.id = 'testcaption'
-                $addCaption.style.color = 'white'
-                $addCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
-                $addCaption.style.fontSize = '18px'
-                $addCaption.style.background = 'black'
-                $addCaption.style.padding = '0 0 0 3px'
-                $addCaption.style.zIndex = '2000000'
-                $addCaption.style.borderRadius = '7px'
-                $addCaption.appendChild(addCaptionText)
-                $add.appendChild($addCaption)
+                let adCaptionText = document.createTextNode(currentAd.caption)
+                $adCaption.id = 'testcaption'
+                $adCaption.style.color = 'white'
+                $adCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
+                $adCaption.style.fontSize = '18px'
+                $adCaption.style.background = 'black'
+                $adCaption.style.padding = '0 0 0 3px'
+                $adCaption.style.zIndex = '2000000'
+                $adCaption.style.borderRadius = '7px'
+                $adCaption.appendChild(adCaptionText)
+                $ad.appendChild($adCaption)
 
-                let insertedNode = ele.insertBefore($addCaptionLink, ele.childNodes[2])
+                let insertedNode = ele.insertBefore($adCaptionLink, ele.childNodes[2])
 
             })
 

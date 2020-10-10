@@ -6,7 +6,7 @@ var restaurantSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  display_adds: {
+  display_ads: {
     type: Boolean,
     required: true,
     default: false

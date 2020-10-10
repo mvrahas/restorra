@@ -11,27 +11,27 @@ router.get('/examplemenu', async (req, res) => {
         name: 'Half Acre Brewing Co',
         subtitle: 'Chicago, IL',
         restaurantlogo: 'https://images.squarespace-cdn.com/content/54f74c5ee4b05bbdbef997f4/1562615459208-P37AUVP0IM5NJHEU1UU4/HABC_Owlhead-GREY.png?format=750w&content-type=image%2Fpng',
-        addcaption: 'Rhona Hoffmannn Gallery',
-        addimage: 'https://media.timeout.com/images/100824847/1372/772/image.jpg',
-        addlink: 'https://www.rhoffmangallery.com/'
+        adcaption: 'Rhona Hoffmannn Gallery',
+        adimage: 'https://media.timeout.com/images/100824847/1372/772/image.jpg',
+        adlink: 'https://www.rhoffmangallery.com/'
       })
   
 })
   
-  router.get('/insertaddsfixed', async (req, res) => {
+  router.get('/insertadsfixed', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
     try {
-      const response = await axios.get('http://'+ req.rawHeaders[1] +'/adds')
+      const response = await axios.get('http://'+ req.rawHeaders[1] +'/ads')
       var randSelection = Math.floor(Math.random() * response.data.length)
-      var currentAdd = response.data[randSelection]
+      var currentAd = response.data[randSelection]
   
       res.render('frame', {
         menuURL: menuURL,
-        title: currentAdd.caption,
-        link: currentAdd.link,
-        imageURL: currentAdd.image_url,
+        title: currentAd.caption,
+        link: currentAd.link,
+        imageURL: currentAd.image_url,
         restaurantName: "configworkingtest",
         amplitudeAPIKey: global.gConfig.amplitude_api_key
       });
@@ -42,20 +42,20 @@ router.get('/examplemenu', async (req, res) => {
   })
   
 
-  router.get('/insertaddsinlineframe', async (req, res) => {
+  router.get('/insertadsinlineframe', async (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
     try {
-      const response = await axios.get('http://'+ req.rawHeaders[1] +'/adds')
+      const response = await axios.get('http://'+ req.rawHeaders[1] +'/ads')
       var randSelection = Math.floor(Math.random() * response.data.length)
-      var currentAdd = response.data[randSelection]
+      var currentAd = response.data[randSelection]
   
       res.render('frame2', {
         menuURL: menuURL,
-        title: currentAdd.caption,
-        link: currentAdd.link,
-        imageURL: currentAdd.image_url
+        title: currentAd.caption,
+        link: currentAd.link,
+        imageURL: currentAd.image_url
       });
     } catch (e) {
       res.send(e)
@@ -66,7 +66,7 @@ router.get('/examplemenu', async (req, res) => {
 
 
 
-  router.get('/insertaddsinlinejs', (req, res) => {
+  router.get('/insertadsinlinejs', (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
@@ -74,7 +74,7 @@ router.get('/examplemenu', async (req, res) => {
     .then(function (response) {
   
         var a = response.data;
-        var b = "<script src='/js/insertaddinline.js'></script>";
+        var b = "<script src='/js/insertadinline.js'></script>";
         var position = response.data.length - 8
         var output = [a.slice(0, position), b, a.slice(position)].join('');
         res.send(output);
@@ -91,7 +91,7 @@ router.get('/examplemenu', async (req, res) => {
   
 
 
-  router.get('/insertaddsfixedjs', (req, res) => {
+  router.get('/insertadsfixedjs', (req, res) => {
   
     const menuURL = req.query.menu || 'https://jeffersontap.com/menu'
   
@@ -99,7 +99,7 @@ router.get('/examplemenu', async (req, res) => {
     .then(function (response) {
   
         var a = response.data;
-        var b = "<script src='/js/insertadd.js'></script>";
+        var b = "<script src='/js/insertad.js'></script>";
         var position = response.data.length - 8
         var output = [a.slice(0, position), b, a.slice(position)].join('');
         res.send(output);

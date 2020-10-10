@@ -1,4 +1,4 @@
-// Resto Adds
+// Restorra
 
 const express = require('express')
 const app = express()
@@ -13,13 +13,13 @@ const port = process.env.PORT || 3000
 const updated_config_based_on_environment = _.merge(config.local, config[environment])
 global.gConfig = updated_config_based_on_environment
 const chalk = require('chalk')
-const addRouter = require('./routes/add')
+const adRouter = require('./routes/ad')
 const restaurantRouter = require('./routes/restaurant')
 const advertiserRouter = require('./routes/advertiser')
 const mongooseConnection = require('./mongooseconnection')
 
 app.use(express.json())
-app.use(addRouter)
+app.use(adRouter)
 app.use(restaurantRouter)
 app.use(advertiserRouter)
 

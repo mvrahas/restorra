@@ -1,31 +1,31 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Add = require('../models/add')
+const Ad = require('../models/ad')
 
 
 
 const router = express.Router()
 
 
-// Create an add
+// Create an ad
 
-router.post('/adds', (req, res) => {
+router.post('/ads', (req, res) => {
     
-    const addToCreate = new Add(req.body)
+    const adToCreate = new Ad(req.body)
     
-    addToCreate.save().then((createdAdd) => {
-        res.status(200).send(createdAdd)
+    adToCreate.save().then((createdAd) => {
+        res.status(200).send(createdAd)
     }).catch((e) => {
         res.status(400).send(e)
     })
 
 })
 
-// Show all adds
+// Show all ads
 
-router.get('/adds', (req, res) => {
+router.get('/ads', (req, res) => {
 
-    Add.find({}).then((resultsOfQuery) => {
+    Ad.find({}).then((resultsOfQuery) => {
         res.status(200).send(resultsOfQuery)
     }).catch((e) => {
         res.status(400).send("Something went wrong")
