@@ -11,6 +11,9 @@ var restaurantSchema = new mongoose.Schema({
     required: true,
     default: false
   },
+  ads: [{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Ad' 
+  }],
   menu_type: {
     type: String,
     required: true,
