@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Ad = require('../models/ad')
+const Restaurant = require('../models/restaurant')
 
 
 
@@ -23,15 +24,22 @@ router.post('/ads', (req, res) => {
 
 // Show all ads
 
-router.get('/ads', (req, res) => {
+router.get('/ads', async (req, res) => {
 
-    Ad.find({}).then((resultsOfQuery) => {
-        res.status(200).send(resultsOfQuery)
-    }).catch((e) => {
-        res.status(400).send("Something went wrong")
-    })
+    try {
+        const restaurantInfo = await Restaurant.findOne({ restaurant_name: req.query.restaurant})
+        const addsToDisplay = await Ad.find({
+            'advertiser': {
+                $in: [restaurantInfo.exclusive_advertisers]
+            }
+        })
+        res.status(200).send(addsToDisplay)
+
+    } catch (e) {
+        res.send(e)
+    }
+
     
-
 })
 
 

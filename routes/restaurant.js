@@ -35,7 +35,6 @@ router.get('/restaurants/:id', (req, res) => {
         res.status(400).send("Something went wrong")
     })
     
-
 })
 
 module.exports = router
