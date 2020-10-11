@@ -11,9 +11,11 @@ var adSchema = new mongoose.Schema({
     required: false,
     default: 'https://advertisements.s3.amazonaws.com/10743.jpg'
   },
-  restaurants: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' 
-  }],
+  advertiser: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Advertiser',
+    required: false
+  },
   link: {
     type: String,
     required: false,

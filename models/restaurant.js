@@ -11,9 +11,6 @@ var restaurantSchema = new mongoose.Schema({
     required: true,
     default: false
   },
-  ads: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Ad' 
-  }],
   menu_type: {
     type: String,
     required: true,
@@ -22,7 +19,17 @@ var restaurantSchema = new mongoose.Schema({
   menu_url: {
     type: String,  
     required: true
-  }
+  },
+  exclusive_advertisers: [{
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Advertiser',
+      required: false
+  }],
+  restricted_advertisers: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Advertiser',
+    required: false
+  }]
 });
   
 var Restaurant = mongoose.model('Restaurant', restaurantSchema);
