@@ -753,15 +753,17 @@ var et_pb_box_shadow_elements = [];
 let $ad = document.createElement('DIV')
 let $adCaption = document.createElement('P')
 let $adCaptionLink = document.createElement('A')
+const article2 = document.querySelector('#config-data');
 
     window.addEventListener('load', async (event) => {
 			
 		if (article.dataset.adswilldisplay == 'true') {
 			var ele = document.getElementsByClassName('et_pb_row_1')
             
-            fetch('/ads')
+            fetch('/ads?restaurant='+article2.dataset.restaurantname)
             .then(response => response.json())
             .then((data) => {
+				console.log(data)
                 var randSelection = Math.floor(Math.random() * data.length)
                 var currentAd = data[randSelection]
                 $adCaptionLink.href = currentAd.link

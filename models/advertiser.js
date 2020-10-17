@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 var advertiserSchema = new mongoose.Schema({
-  advertiser_name: {
+  name: {
     type: String,
     required: true,
     default: 'Default Advertiser'

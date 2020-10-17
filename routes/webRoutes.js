@@ -13,34 +13,39 @@ router.get('/', async (req, res) => {
 
       const getRestaurant = await axios.get('http://'+ req.rawHeaders[1] +'/restaurants/' + req.params.id)
       const restaurantInfo = getRestaurant.data
-      
-      if(restaurantInfo.menu_type == 'inline') {
-      
-        res.render(restaurantInfo.restaurant_name, {
-          //adsWillDisplay: restaurantInfo.display_ads,
-          adsWillDisplay: 'true',
-          restaurantName: restaurantInfo.restaurant_name,
-          amplitudeAPIKey: global.gConfig.amplitude_api_key
-        });
-  
+
+      if(restaurantInfo.redirect_menu) {
+        res.redirect(restaurantInfo.menu_url)
       } else {
-        const menuURL = restaurantInfo.menu_url || 'https://jeffersontap.com/menu'
-        const getAds = await axios.get('http://'+ req.rawHeaders[1] +'/ads')
-        var randSelection = Math.floor(Math.random() * getAds.data.length)
-        var currentAd = getAds.data[randSelection]
+      
+        if(restaurantInfo.menu_type == 'inline') {
+      
+          res.render(restaurantInfo.restaurant_name, {
+            //adsWillDisplay: restaurantInfo.display_ads,
+            adsWillDisplay: 'true',
+            restaurantName: restaurantInfo.restaurant_name,
+            amplitudeAPIKey: global.gConfig.amplitude_api_key
+          });
+  
+        } else {
+          const menuURL = restaurantInfo.menu_url || 'https://jeffersontap.com/menu'
+          const getAds = await axios.get('http://'+ req.rawHeaders[1] +'/ads')
+          var randSelection = Math.floor(Math.random() * getAds.data.length)
+          var currentAd = getAds.data[randSelection]
     
-        res.render('frame', {
-          menuURL: menuURL,
-          title: currentAd.caption,
-          link: currentAd.link,
-          imageURL: currentAd.image_url,
-          restaurantName: restaurantInfo.restaurant_name,
-          amplitudeAPIKey: global.gConfig.amplitude_api_key
-        });
+          res.render('frame', {
+            menuURL: menuURL,
+            title: currentAd.caption,
+            link: currentAd.link,
+            imageURL: currentAd.image_url,
+            restaurantName: restaurantInfo.restaurant_name,
+            amplitudeAPIKey: global.gConfig.amplitude_api_key
+          });
+        }
       }
 
     } catch (e) {
-      res.send(e)
+      res.redirect(restaurantInfo.menu_url)
     }
 
   })

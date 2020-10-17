@@ -14,7 +14,7 @@ var adSchema = new mongoose.Schema({
   advertiser: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Advertiser',
-    required: false
+    required: true
   },
   link: {
     type: String,

@@ -20,6 +20,11 @@ var restaurantSchema = new mongoose.Schema({
     type: String,  
     required: true
   },
+  redirect_menu: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   exclusive_advertisers: [{
       type: mongoose.Schema.Types.ObjectId, 
       ref: 'Advertiser',
