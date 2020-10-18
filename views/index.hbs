@@ -9,13 +9,13 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
 	<link href="css/templatemo-style.css" rel="stylesheet" />
 	<style>
-		.popup-add {
+		.popup-ad {
   			position: fixed;
   			bottom: -300px;
   			width: calc(100vw - 40px);
   			height: 200px;
   			margin: 20px;
-  			background-image: url({{addimage}});
+  			background-image: url({{adimage}});
   			background-size: cover;
   			z-index: 1000000;
   			transition: bottom 1s;
@@ -51,9 +51,9 @@ https://templatemo.com/tm-539-simple-house
 		</div>
 
 		<main>
-			<a href={{addlink}}>
-			<div id="add" class="popup-add">
-				<p class="popup-text">{{addcaption}}</p>
+			<a href={{adlink}}>
+			<div id="ad" class="popup-ad">
+				<p class="popup-text">{{adcaption}}</p>
 			</div>
 			</a>
 			<header class="row tm-welcome-section"></header>
@@ -292,12 +292,12 @@ https://templatemo.com/tm-539-simple-house
 	</div>
 	<script> 
 	
-		const $add = document.getElementById('add')
+		const $ad = document.getElementById('ad')
 	
 		const tryDisplay = function() {
 			setTimeout(() => {
 				if(document.documentElement.scrollTop > 300) {
-					$add.style.bottom = '0px'
+					$ad.style.bottom = '0px'
 				} else {
 					tryDisplay()
 				}

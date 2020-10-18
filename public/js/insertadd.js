@@ -1,44 +1,44 @@
 
-let $add = document.createElement('DIV')
-let $addCaption = document.createElement('P')
-let $addCaptionLink = document.createElement('A')
+let $ad = document.createElement('DIV')
+let $adCaption = document.createElement('P')
+let $adCaptionLink = document.createElement('A')
 
     window.addEventListener('load', async (event) => {
             
 
-            fetch('/adds')
+            fetch('/ads')
             .then(response => response.json())
             .then((data) => {
                 var randSelection = Math.floor(Math.random() * data.length)
-                var currentAdd = data[randSelection]
+                var currentAd = data[randSelection]
 
-                $addCaptionLink.href = currentAdd.link
-                document.body.appendChild($addCaptionLink)
+                $adCaptionLink.href = currentAd.link
+                document.body.appendChild($adCaptionLink)
 
-                $add.style.position = 'fixed'
-                $add.style.bottom = '-300px'
-                $add.style.width = 'calc(100vw - 40px)'
-                $add.style.height = '160px'
-                $add.style.margin = '20px'
-                $add.style.backgroundImage = 'url('+currentAdd.image_url+')'
-                $add.style.backgroundSize = 'cover'
-                $add.style.zIndex = '1000000'
-                $add.style.transition = 'bottom 1s'
-                $add.style.borderRadius = '7px'
-                $add.id = 'testadd'
-                $addCaptionLink.appendChild($add);
+                $ad.style.position = 'fixed'
+                $ad.style.bottom = '-300px'
+                $ad.style.width = 'calc(100vw - 40px)'
+                $ad.style.height = '160px'
+                $ad.style.margin = '20px'
+                $ad.style.backgroundImage = 'url('+currentAd.image_url+')'
+                $ad.style.backgroundSize = 'cover'
+                $ad.style.zIndex = '1000000'
+                $ad.style.transition = 'bottom 1s'
+                $ad.style.borderRadius = '7px'
+                $ad.id = 'testad'
+                $adCaptionLink.appendChild($ad);
 
-                let addCaptionText = document.createTextNode(currentAdd.caption)
-                $addCaption.id = 'testcaption'
-                $addCaption.style.color = 'white'
-                $addCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
-                $addCaption.style.fontSize = '18px'
-                $addCaption.style.background = 'black'
-                $addCaption.style.padding = '0 0 0 3px'
-                $addCaption.style.zIndex = '2000000'
-                $addCaption.style.borderRadius = '7px'
-                $addCaption.appendChild(addCaptionText)
-                $add.appendChild($addCaption)
+                let adCaptionText = document.createTextNode(currentAd.caption)
+                $adCaption.id = 'testcaption'
+                $adCaption.style.color = 'white'
+                $adCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
+                $adCaption.style.fontSize = '18px'
+                $adCaption.style.background = 'black'
+                $adCaption.style.padding = '0 0 0 3px'
+                $adCaption.style.zIndex = '2000000'
+                $adCaption.style.borderRadius = '7px'
+                $adCaption.appendChild(adCaptionText)
+                $ad.appendChild($adCaption)
 
                 setTimeout(() => {
                     tryDisplay()
@@ -51,7 +51,7 @@ let $addCaptionLink = document.createElement('A')
     const tryDisplay = function() {
         setTimeout(() => {
             if(document.documentElement.scrollTop > 300) {
-                $add.style.bottom = '0px'
+                $ad.style.bottom = '0px'
             } else {
                 tryDisplay()
             }

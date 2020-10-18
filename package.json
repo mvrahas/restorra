@@ -1,7 +1,7 @@
 {
-  "name": "resto-adds",
+  "name": "restorra",
   "version": "1.0.0",
-  "description": "Adds on a digital restaurant menu",
+  "description": "Ads on a digital restaurant menu",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

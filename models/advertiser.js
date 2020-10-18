@@ -1,16 +1,13 @@
 const mongoose = require('mongoose')
 
-const advertiserSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: True
-    },
-    zipcode: {
-        type: Number,
-        required: True
-    }
-})
-
-var Advertiser = mongoose.Model('Advertiser', advertiserSchema)
+var advertiserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    default: 'Default Advertiser'
+  }
+});
+  
+var Advertiser = mongoose.model('Advertiser', advertiserSchema);
 
 module.exports = Advertiser

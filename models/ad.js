@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
 
-var addSchema = new mongoose.Schema({
+var adSchema = new mongoose.Schema({
   caption: {
     type: String,
     required: true,
-    default: 'Add Caption'
-  },
-  advertiser: {
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Advertiser',
-    required: false
+    default: 'Ad Caption'
   },
   image_url: {
     type: String,
     required: false,
     default: 'https://advertisements.s3.amazonaws.com/10743.jpg'
+  },
+  advertiser: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Advertiser',
+    required: true
   },
   link: {
     type: String,
@@ -23,6 +23,6 @@ var addSchema = new mongoose.Schema({
   }
 });
   
-var Add = mongoose.model('Add', addSchema);
+var Ad = mongoose.model('Ad', adSchema);
 
-module.exports = Add
+module.exports = Ad
