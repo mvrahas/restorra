@@ -4,7 +4,7 @@ const Advertiser = require('../models/advertiser')
 
 const router = express.Router()
 
-// Create an ad
+// Create an advertiser
 router.post('/advertiser', (req, res) => {
     
     const advertiserToCreate = new Advertiser(req.body)
@@ -17,7 +17,7 @@ router.post('/advertiser', (req, res) => {
 
 })
 
-// Show all ads
+// Show all advertisers
 
 router.get('/advertiser', (req, res) => {
 
