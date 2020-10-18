@@ -763,7 +763,6 @@ const article2 = document.querySelector('#config-data');
             fetch('/ads?restaurant='+article2.dataset.restaurantname)
             .then(response => response.json())
             .then((data) => {
-				console.log(data)
                 var randSelection = Math.floor(Math.random() * data.length)
                 var currentAd = data[randSelection]
                 $adCaptionLink.href = currentAd.link
