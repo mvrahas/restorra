@@ -4,8 +4,8 @@ let $adCaption = document.createElement('P')
 let $adCaptionLink = document.createElement('A')
 
     window.addEventListener('load', async (event) => {
+            var ele = document.getElementById('main')
             
-
             fetch('/ads')
             .then(response => response.json())
             .then((data) => {
@@ -13,18 +13,13 @@ let $adCaptionLink = document.createElement('A')
                 var currentAd = data[randSelection]
 
                 $adCaptionLink.href = currentAd.link
-                document.body.appendChild($adCaptionLink)
-
-                $ad.style.position = 'fixed'
-                $ad.style.bottom = '-300px'
-                $ad.style.width = 'calc(100vw - 40px)'
+                $ad.style.position = 'relative'
+                $ad.style.width = '300px'
                 $ad.style.height = '160px'
                 $ad.style.margin = '20px'
                 $ad.style.backgroundImage = 'url('+currentAd.image_url+')'
                 $ad.style.backgroundSize = 'cover'
                 $ad.style.zIndex = '1000000'
-                $ad.style.transition = 'bottom 1s'
-                $ad.style.borderRadius = '7px'
                 $ad.id = 'testad'
                 $adCaptionLink.appendChild($ad);
 
@@ -40,20 +35,8 @@ let $adCaptionLink = document.createElement('A')
                 $adCaption.appendChild(adCaptionText)
                 $ad.appendChild($adCaption)
 
-                setTimeout(() => {
-                    tryDisplay()
-                }, 4000)
+                let insertedNode = ele.insertBefore($adCaptionLink, ele.childNodes[2])
+
             })
 
-
     })
-
-    const tryDisplay = function() {
-        setTimeout(() => {
-            if(document.documentElement.scrollTop > 300) {
-                $ad.style.bottom = '0px'
-            } else {
-                tryDisplay()
-            }
-        }, 2000)
-    }

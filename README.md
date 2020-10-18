@@ -1,4 +1,4 @@
-# resto-adds
+# restorra
 
 Download NodeJS For Windows following these instructions. https://www.twilio.com/blog/starting-from-zero-node-js-windows-10
 
@@ -16,4 +16,4 @@ http://localhost:3000/menu
 
 http://localhost:3000/selectrestaurant
 
-http://localhost:3000/insertadds
+http://localhost:3000/insertads
