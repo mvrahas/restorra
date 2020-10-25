@@ -13,6 +13,6 @@
     "production" : {
         "db_connection_string" : "mongodb+srv://telemarkus:VZrECxVuunjmbVGv@telemarkus.rp9d8.gcp.mongodb.net/restorra-prod?retryWrites=true&w=majority",
         "db_name" : "restorra-prod",
-        "amplitude_api_key" : "d160d78556848555913099faab52266"
+        "amplitude_api_key" : "d160d78556848555913099faab522661"
     }
 }
