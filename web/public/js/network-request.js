@@ -48,13 +48,8 @@ post = async function(body,route,includeAuth) {
     
     try {
         const data = await fetch(route,options)
-        console.log(data)
-        //const json_data = data.json()
-        //if(json_data.error) {
-        //    return json_data.error
-        //} else {
-        //    return json_data
-        //}
+        const json_data = await data.json()
+        return json_data
     } catch (e) {
         throw new Error(e)
     }
