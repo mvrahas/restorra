@@ -109,7 +109,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         res.status(200).send({
             currentIndex: hcp_index,
             projectedIndex: projectedAvgDiff.avg,
-            //arrayEx: projectedAvgDiff.array,
             course: courseArray,
             indexArray: indexArray
         })
