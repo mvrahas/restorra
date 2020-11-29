@@ -3,31 +3,91 @@
 <html> 
     <head> 
         <link rel='stylesheet' href='./css/styles.css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='./js/network-request.js'></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript" src='./js/summary-chart.js'></script>
+        <style> 
+            .score {
+                width: 100%;
+                height: 100%;
+                background: grey;
+                margin: 10px 0 10px 0
+            }
+            .hero-text {
+                font-size: 36px;
+            }
+            .scores-container {
+                min-height: 500px;
+                margin-top: 40px;;
+            }
+ 
+        </style>
     </head>
     <body>
         {{>header}}
         <div class="main-content">
-            <p id='no-data'></p>
-            <div id="curve_chart" style="width: 650px; height: 500px"></div>
-            <div class="scores_list">
-            {{#each summary}}
-            <div class="stats-entry">
-                <h3>{{this.stat}}</h3>
-                <div class="stats-label rounded-blue">
-                    <p class="stat-text label-text">{{this.average}}</p>
-                    <h5 class="stat-text">Average</h5>
-                </div>
-                <div class="stats-label right rounded-blue">
-                    <p class="stat-text label-text">{{this.goal}}</p>
-                    <h5 class="stat-text">Goal</h5>
-                </div>
+
+            <form>
+                <label>Have a </label>
+                <input class="form-input" type="text" value="9.3" id="goal-val" onchange="renderAnalysis()">
+                <label>index</label><br>
+                <label>in</label>
+                <input class="form-input" type="text" value="3" id="rounds-val" onchange="renderAnalysis()">
+                <label>rounds</label>
+            </form>
+            <div id='scores-needed' class='scores-container'>
+               <h3>Scores Needed</h3>
             </div>
-            {{/each}}
-            </div>
-        </div>
+
         {{>footer}}
     </body>
+    <script>
+
+        const $goalVal = document.getElementById('goal-val')
+        const $roundsVal = document.getElementById('rounds-val')
+        
+        const renderAnalysis = async function () {
+
+            try {
+
+                const data = await get('/analyze/handicap-projection?rounds='+$roundsVal.value+'&goal='+$goalVal.value+'')
+
+                let scoresContainer = document.getElementById('scores-needed')
+
+                scoresContainer.innerHTML = ''
+
+                for (var i=0; i< data.course.length; i++) {
+                    
+                    var score = document.createElement('div')
+                    score.classList.add('score')
+                    
+                    var scoreScore = document.createElement('p')
+                    scoreScore.innerHTML = data.course[i].targetScore
+                    scoreScore.classList.add('score-score')
+                    var scoreCourse = document.createElement('p')
+                    scoreCourse.innerHTML = data.course[i].course
+                    var scoreTees = document.createElement('p')
+                    scoreTees.innerHTML = data.course[i].tee
+                    var scoreSlope = document.createElement('p')
+                    scoreSlope.innerHTML = data.course[i].slope
+
+                    score.appendChild(scoreScore)
+                    score.appendChild(scoreCourse)
+                    score.appendChild(scoreTees)
+                    score.appendChild(scoreSlope)
+
+                    scoresContainer.appendChild(score)
+                }
+
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+
+        window.addEventListener('load', (event) => {
+            renderAnalysis()
+        })
+
+    </script>
 </html>
