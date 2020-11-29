@@ -55,11 +55,13 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             }
         }
         
-        for (i = 0; i < indexListDataObject.handicap_revisions.length; i++) {
-            indexArray.push({
-                date: indexListDataObject.handicap_revisions[i].RevDate,
-                index: indexListDataObject.handicap_revisions[i].LowHIDisplay
-            })
+        //create list of index's
+        for(i=0; i< rounds; i++) {
+            indexArray.push(goalDiff)
+        }
+        
+        for (i = 0; i < indexListDataObject.handicap_revisions.length && i < roundsToFetch; i++) {
+            indexArray.push(parseFloat(indexListDataObject.handicap_revisions[i].LowHIDisplay))
         }
 
         const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
@@ -104,6 +106,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
         for (i = 0; i < courseArray.length; i++) {
             courseArray[i].targetScore = Math.round(goalDiffAdjusted / (113 / courseArray[i].slope) + courseArray[i].rating)
+            courseArray[i].diff = goalDiffAdjusted
         }
 
         res.status(200).send({

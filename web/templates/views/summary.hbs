@@ -5,20 +5,26 @@
         <link rel='stylesheet' href='./css/styles.css'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='./js/network-request.js'></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         <style> 
             .score {
                 width: 100%;
                 height: 100%;
-                background: grey;
+                background: lightgrey;
                 margin: 10px 0 10px 0
             }
+                .score-score {
+                    font-size: 30px;
+                    margin: 10px 0 5px 5px;
+                }
             .hero-text {
                 font-size: 36px;
             }
             .scores-container {
                 min-height: 500px;
-                margin-top: 40px;;
+            }
+            .scores-header {
+                margin-top: 30px;
             }
  
         </style>
@@ -26,6 +32,7 @@
     <body>
         {{>header}}
         <div class="main-content">
+            <canvas id="myChart" width="400" height="200"></canvas>
 
             <form>
                 <label>Have a </label>
@@ -35,12 +42,47 @@
                 <input class="form-input" type="text" value="3" id="rounds-val" onchange="renderAnalysis()">
                 <label>rounds</label>
             </form>
+            <h3 class='scores-header'>Scores Needed</h3>
             <div id='scores-needed' class='scores-container'>
-               <h3>Scores Needed</h3>
             </div>
 
         {{>footer}}
     </body>
+<script>
+
+const renderChart = function (data) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['', '', '', '', '', '', ''],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data,
+            lineTension: 0
+
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        scales: {
+        xAxes: [{
+            ticks: {
+                reverse: true,
+                min: 0,
+                max: 20,
+                stepSize: 1
+            },
+        }]
+        }
+    }
+
+});
+}
+</script>
     <script>
 
         const $goalVal = document.getElementById('goal-val')
@@ -67,16 +109,20 @@
                     var scoreCourse = document.createElement('p')
                     scoreCourse.innerHTML = data.course[i].course
                     var scoreTees = document.createElement('p')
-                    scoreTees.innerHTML = data.course[i].tee
-                    var scoreSlope = document.createElement('p')
-                    scoreSlope.innerHTML = data.course[i].slope
+                    scoreTees.innerHTML = data.course[i].tee + ' / ' + data.course[i].rating + ' / ' + data.course[i].slope
+                    var scoreDiff = document.createElement('p')
+                    scoreDiff.innerHTML = 'Played like a '+data.course[i].diff.toFixed(1) + ' handicap.'
 
                     score.appendChild(scoreScore)
                     score.appendChild(scoreCourse)
                     score.appendChild(scoreTees)
-                    score.appendChild(scoreSlope)
+                    score.appendChild(scoreDiff)
 
                     scoresContainer.appendChild(score)
+
+
+                    renderChart(data.indexArray)
+
                 }
 
             } catch (e) {
