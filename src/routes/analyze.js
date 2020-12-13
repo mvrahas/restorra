@@ -31,7 +31,8 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         const diffArray = []
         const courseArrayBrev = []
         const courseArray = []
-        const indexArray = []
+        var indexArray = []
+        var indexArrayBasic = []
 
         const response = await axios.get(url, requestOptions)
         const response2 = await axios.get(url2)
@@ -57,11 +58,23 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         
         //create list of index's
         for(i=0; i< rounds; i++) {
-            indexArray.push(goalDiff)
+            indexArray.push(
+                {
+                    score: goalDiff,
+                    date: 'NA',
+                    type: 'prospective'
+                }
+            )
         }
         
         for (i = 0; i < indexListDataObject.handicap_revisions.length && i < roundsToFetch; i++) {
-            indexArray.push(parseFloat(indexListDataObject.handicap_revisions[i].LowHIDisplay))
+            indexArray.push(
+                {
+                    score: parseFloat(indexListDataObject.handicap_revisions[i].Display),
+                    date: indexListDataObject.handicap_revisions[i].RevDate,
+                    type: 'confirmed'
+                })
+            indexArrayBasic.push(parseFloat(indexListDataObject.handicap_revisions[i].Display))
         }
 
         const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
@@ -110,10 +123,15 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         }
 
         res.status(200).send({
-            currentIndex: hcp_index,
-            projectedIndex: projectedAvgDiff.avg,
             course: courseArray,
-            indexArray: indexArray
+            indexArray,
+            indexData: {
+                currentIndex: hcp_index,
+                goalIndex: goalDiff,
+                projectedIndex: projectedAvgDiff.avg,
+                maxIndex: Math.max(...indexArrayBasic),
+                minIndex: Math.min(...indexArrayBasic)
+            }
         })
 
     } catch(e) {

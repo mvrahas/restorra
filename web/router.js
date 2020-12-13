@@ -30,9 +30,7 @@ router.get('/summary', getCookie, async (req, res) => {
     try {
         const summary = await rp(options)
         res.render('summary', {
-            title: "Summary",
-            name: "telemarkus",
-            summary: summary.summary_stats
+            name: "telemarkus"
         })
     } catch (e) {
         console.log(e)
