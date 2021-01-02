@@ -40,7 +40,6 @@ post = async function(body,route,includeAuth) {
         },
         body: JSON.stringify(body)
     }
-    console.log(options)
 
     if(includeAuth) {
         options.headers["Authorization"] = "Bearer " + token

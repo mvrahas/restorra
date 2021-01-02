@@ -16,6 +16,7 @@
                 <input type="text" placeholder="ghin number" name="ghin_number">
                 <button type="submit">Login</button>
             </form>
+            <label id="form-error"></label>
         </div>
         <script>
 
@@ -30,8 +31,12 @@
                 
                 try {
                     const data = await post(body,'/register', false)
-                    document.cookie = "token=" + data.token;
-                    window.open("/summary","_self")
+                    if(data.error) {
+                        document.getElementById('form-error').innerHTML = data.error
+                    } else {
+                        document.cookie = "token=" + data.token;
+                        window.open("/summary","_self")
+                    }
                 } catch (e) {
                     console.log(e)
                 }

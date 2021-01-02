@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
     ghin_token = await user.logIntoGHIN()
     res.status(201).send({user, token})
   } catch (e) {
-    res.status(400).send(e.message)
+    res.status(300).send({error : e.message})
   }
 
 })
@@ -51,6 +51,7 @@ router.patch('/users', authenticate, async (req, res) => {
   }
 
 })
+
 
 // Show all users
 router.get('/users', authenticate, async (req, res) => {
