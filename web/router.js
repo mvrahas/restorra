@@ -23,9 +23,7 @@ router.get('/summary', getCookie, async (req, res) => {
     
     try {
         const summary = await rp(options)
-        res.render('summary', {
-            name: "telemarkus"
-        })
+        res.render('summary')
     } catch (e) {
         console.log(e)
     }
@@ -35,8 +33,7 @@ router.get('/summary', getCookie, async (req, res) => {
 
 router.get('/register', (req, res) => {
     res.render('register', {
-        title: "Register",
-        name: "telemarkus"
+        title: "Register"
     })
 })
 
@@ -54,7 +51,6 @@ router.get('/allscores', getCookie, async (req, res) => {
         const scores = await rp(options)
         res.render('allscores', {
             title: "All Scores",
-            name: "telemarkus",
             scores: scores
         })
     } catch (e) {

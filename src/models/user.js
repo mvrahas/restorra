@@ -8,7 +8,11 @@ const axios = require('axios')
 
 userSchema = new mongoose.Schema({
 
-    name : {
+    first_name : {
+        type: String,
+        required: false
+    },
+    last_name : {
         type: String,
         required: true
     },
@@ -44,28 +48,6 @@ userSchema = new mongoose.Schema({
 })
 
 
-/*
-
-This will eventually be replaced by a passwordless login system when the application has subscriptions and email functionality. No login for now
-
-userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({email})
-    if (!user) {
-        throw new Error('Unable to log in')
-    }
-
-    const ismatch = await bcrypt.compare(password, user.password)
-
-    if(!ismatch) {
-        throw new Error('Unable to log in')
-    }
-
-    return user
-
-}
-*/
-
-
 
 userSchema.pre('save', async function(next) {
     const user = this
@@ -94,7 +76,7 @@ userSchema.methods.issueAuthToken = async function () {
 userSchema.methods.logIntoGHIN = async function () {
     const user = this
     // needs handling for if the request is unsuccessful or GHIN is down
-    url = 'https://api2.ghin.com/api/v1/public/login.json?ghinNumber='+user.ghin_number+'&lastName='+user.name+'&remember_me=false'
+    url = 'https://api2.ghin.com/api/v1/public/login.json?ghinNumber='+user.ghin_number+'&lastName='+user.last_name+'&remember_me=false'
 
   try {
     const response = await axios.get(url)
