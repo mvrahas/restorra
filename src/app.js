@@ -15,12 +15,14 @@ global.gConfig = updated_config_based_on_environment
 const chalk = require('chalk')
 const scoreRouter = require('./routes/score')
 const userRouter = require('./routes/user')
+const analyzeRouter = require('./routes/analyze')
 const webRouter = require('../web/router.js')
 const mongooseConnection = require('./mongoose')
 
 app.use(express.json())
 app.use(scoreRouter)
 app.use(userRouter)
+app.use(analyzeRouter)
 
 
 // Web App Initialization
@@ -34,7 +36,6 @@ app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 hbs.registerPartials(partialsPath)
 app.use(express.static(publicDirectoryPath))
-app.use(express.static(publicDirectoryPath))
 app.use(webRouter)
 
 
@@ -43,5 +44,5 @@ app.use(webRouter)
 app.listen(port, () => {console.log(chalk.green(global.gConfig.APPLICATION_TITLE + " " + global.gConfig.APPLICATION_VERSION + ' is up on ' + port))})
 
 app.get('/', (req, res) => {
-  res.redirect('/index')
+  res.redirect('/register')
 })

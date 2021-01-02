@@ -3,31 +3,134 @@
 <html> 
     <head> 
         <link rel='stylesheet' href='./css/styles.css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='./js/network-request.js'></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript" src='./js/summary-chart.js'></script>
     </head>
     <body>
         {{>header}}
         <div class="main-content">
-            <p id='no-data'></p>
-            <div id="curve_chart" style="width: 650px; height: 500px"></div>
-            <div class="scores_list">
-            {{#each summary}}
-            <div class="stats-entry">
-                <h3>{{this.stat}}</h3>
-                <div class="stats-label rounded-blue">
-                    <p class="stat-text label-text">{{this.average}}</p>
-                    <h5 class="stat-text">Average</h5>
-                </div>
-                <div class="stats-label right rounded-blue">
-                    <p class="stat-text label-text">{{this.goal}}</p>
-                    <h5 class="stat-text">Goal</h5>
-                </div>
-            </div>
-            {{/each}}
-            </div>
-        </div>
-        {{>footer}}
+            <h3>Handicap Summary</h3>
+            <svg viewBox="0 0 120 60" class="chart" id="index-chart">
+                <text x="0" y="10" class="small" id="chart-max-label">12.2</text>
+                <text x="0" y="60" class="small" id="chart-min-label">5.0</text>
+                <polyline id="confirmed-polyline" fill="none" stroke="#00FF94" stroke-width="1"/>
+                <polyline id="future-polyline" fill="none" stroke="#00FF94" stroke-width="1" stroke-dasharray="2, 2"/>
+            </svg>
+            <h3>Set A Goal</h3>
+            <form>
+                <input class="form-input" type="text" value="9.3" id="goal-val" onchange="renderAnalysis()">
+                <label>Handicap</label>
+                <input class="form-input" type="text" value="3" id="rounds-val" onchange="renderAnalysis()">
+                <label>Rounds</label>
+            </form>
+            <h3>Scores Needed</h3>
+            <div id='scores-needed' class='scores-container'></div>
     </body>
+    <script>
+
+        var svg = document.getElementById('index-chart');
+        var $confirmedPolyline = document.getElementById('confirmed-polyline');
+        var $futurePolyline= document.getElementById('future-polyline');
+        var $minLabel = document.getElementById('chart-min-label')
+        var $maxLabel = document.getElementById('chart-max-label')
+
+        const renderChart = function (data) {
+
+            //finding the min and max for the chart labels
+            var min = 0
+            if (data.indexData.goalIndex < data.indexData.minIndex) {
+                min = data.indexData.goalIndex
+            } else {
+                min = data.indexData.minIndex
+            }
+            min = min - 2
+            var max = data.indexData.maxIndex + 2
+            var range = max - min
+
+            $minLabel.innerHTML = min
+            $maxLabel.innerHTML = max
+
+
+            //creating the points for the polylines
+            var xCounter = 120
+            var isFirstAdditionToLine = true
+            $futurePolyline.setAttribute('points', '')
+            $confirmedPolyline.setAttribute('points', '')
+            for(var i = 0 ; i < 13; i++) {
+                var value = data.indexArray[i].score
+                if(data.indexArray[i].type == 'confirmed') {
+
+                    var point = svg.createSVGPoint();
+                    point.x = xCounter;
+                    point.y = ((max - value) / range)*60;
+                    $confirmedPolyline.points.appendItem(point);
+
+                    if(isFirstAdditionToLine) {
+                        $futurePolyline.points.appendItem(point)
+                        isFirstAdditionToLine = false
+                    }
+
+                } else {
+                    var point = svg.createSVGPoint();
+                    point.x = xCounter;
+                    point.y = ((max - value) / range)*60;
+                    $futurePolyline.points.appendItem(point);
+                }
+                xCounter = xCounter - 10
+            }
+
+        }
+
+    </script>
+    <script>
+
+        const $goalVal = document.getElementById('goal-val')
+        const $roundsVal = document.getElementById('rounds-val')
+        
+        const renderAnalysis = async function () {
+
+            try {
+
+                const data = await get('/analyze/handicap-projection?rounds='+$roundsVal.value+'&goal='+$goalVal.value+'')
+
+                let scoresContainer = document.getElementById('scores-needed')
+
+                scoresContainer.innerHTML = ''
+
+                for (var i=0; i< data.course.length; i++) {
+                    
+                    var score = document.createElement('div')
+                    score.classList.add('score-card')
+                    
+                    var scoreScore = document.createElement('div')
+                    scoreScore.innerHTML = data.course[i].targetScore
+                    scoreScore.classList.add('score-score')
+                    var scoreCourse = document.createElement('p')
+                    scoreCourse.innerHTML = data.course[i].course
+                    scoreCourse.classList.add('score-course')
+                    var scoreTees = document.createElement('label')
+                    scoreTees.innerHTML = data.course[i].tee + ' / ' + data.course[i].rating + ' / ' + data.course[i].slope
+                    scoreTees.classList.add('score-details')
+
+                    score.appendChild(scoreScore)
+                    score.appendChild(scoreCourse)
+                    score.appendChild(scoreTees)
+
+                    scoresContainer.appendChild(score)
+
+                }
+
+                renderChart(data)
+
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+
+        window.addEventListener('load', (event) => {
+            renderAnalysis()
+        })
+
+    </script>
 </html>

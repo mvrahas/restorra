@@ -3,12 +3,6 @@ var router = express.Router()
 var getCookie = require('./public/js/get-cookie.js')
 var rp = require('request-promise')
 
-router.get('/index', (req, res) => {
-    res.render('index', {
-        title: "Login",
-        name: "telemarkus"
-    })
-})
 
 router.get('/post', getCookie, (req, res) => {
     res.render('post', {
@@ -30,9 +24,7 @@ router.get('/summary', getCookie, async (req, res) => {
     try {
         const summary = await rp(options)
         res.render('summary', {
-            title: "Summary",
-            name: "telemarkus",
-            summary: summary.summary_stats
+            name: "telemarkus"
         })
     } catch (e) {
         console.log(e)
