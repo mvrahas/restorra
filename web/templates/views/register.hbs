@@ -3,14 +3,15 @@
 <html> 
     <head> 
         <link rel="icon" href="/img/icon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='/css/styles.css'>
         <script src='./js/network-request.js'></script>
     </head>
     <body>
         <div class='main-content'>
-            <h3>Register as a new user</h3>
+            <h3>Analyze your handicap</h3>
             <form class="form" id="myForm">
-                <input type="text" placeholder="name" name="name">
+                <input type="text" placeholder="last name" name="name">
                 <input type="text" placeholder="email" name="email">
                 <input type="text" placeholder="ghin number" name="ghin_number">
                 <button type="submit">Login</button>
@@ -37,21 +38,6 @@
 
             })
             
-            /*
-            myForm.addEventListener('submit', async function (e) {
-
-            try {
-                //const data = await get('/users', false)
-                //document.cookie = "token=" + data.token;
-                //window.open("/summary","_self")
-                console.log('hey')
-            } catch (e) {
-                console.log(e)
-            }
-
-            })
-
-            */
         </script>
     </body>
 </html>

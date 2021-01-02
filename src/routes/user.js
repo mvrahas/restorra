@@ -7,28 +7,22 @@ const bcrypt = require('bcrypt')
 // Register a new user
 router.post('/register', async (req, res) => {
 
-  const user = new User(req.body)
-    try {
-      token = await user.issueAuthToken()
-      ghin_token = await user.logIntoGHIN()
-      res.status(201).send({user, token})
-    } catch (e) {
-      res.status(400).send(e.message)
-    }
-})
+  var user = await User.findOne({email: req.body.email})
 
-/*
-router.post('/login', async (req, res) => {
+  if(!user) {
+    user = new User(req.body)
+  }
+
   try {
-    const user = await User.findByCredentials(req.body.email, req.body.password)
     token = await user.issueAuthToken()
     ghin_token = await user.logIntoGHIN()
-    res.status(200).send({user, token})
+    res.status(201).send({user, token})
   } catch (e) {
     res.status(400).send(e.message)
   }
+
 })
-*/
+
 
 // Read user profile
 router.get('/me', authenticate, async (req, res) => {

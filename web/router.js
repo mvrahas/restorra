@@ -3,12 +3,6 @@ var router = express.Router()
 var getCookie = require('./public/js/get-cookie.js')
 var rp = require('request-promise')
 
-router.get('/index', (req, res) => {
-    res.render('index', {
-        title: "Login",
-        name: "telemarkus"
-    })
-})
 
 router.get('/post', getCookie, (req, res) => {
     res.render('post', {

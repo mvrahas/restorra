@@ -120,6 +120,12 @@ form {
     margin-top: 20px;
 }
 
+button{
+    width: 180px;
+    height: 32px;
+    border-radius: 6px;
+}
+
 
 .main-content{
     flex-grow: 1;
