@@ -1,3 +1,27 @@
 <header>
-    <a id="logout" href="/index">Log Out</a>
+<div id="menu-button" onclick='showPopup()'>
+        <svg viewBox="0 0 100 80" width="36" height="36">
+            <rect width="100" height="10" y="5" fill="white"></rect>
+            <rect y="35" width="100" height="10" fill="white"></rect>
+            <rect y="65" width="100" height="10" fill="white"></rect>
+        </svg>
+    </div>
+    <div id="menu-popup">
+        <div id="menu-blocker" onclick='hidePopup()'></div>
+        <menu type="context">
+            <menuitem><a href="/index">About</a></menuitem>
+            <menuitem><a href="/index">Logout</a></menuitem>
+        </menu>
+    </div>
 </header>
+<script>
+        var $menuButton = document.getElementById('menu-button');
+        var $menuPopup = document.getElementById('menu-popup');
+
+        const showPopup = function () {
+            $menuPopup.style.display = 'block'
+        }
+        const hidePopup = function () {
+            $menuPopup.style.display = 'none'
+        }
+</script>
