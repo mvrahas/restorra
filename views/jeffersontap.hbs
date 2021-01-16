@@ -3445,11 +3445,12 @@ fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnam
 <script>
     let $ad = document.createElement('DIV')
     let $adCaptionLink = document.createElement('A')
+	const article2 = document.querySelector('#config-data');
 
     window.addEventListener('load', async (event) => {
             var ele = document.getElementById('main')
             
-            fetch('/ads')
+            fetch('/ads?restaurant='+article2.dataset.restaurantname)
             .then(response => response.json())
             .then((data) => {
                 var randSelection = Math.floor(Math.random() * data.length)
