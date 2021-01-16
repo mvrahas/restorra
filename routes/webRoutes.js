@@ -3,6 +3,12 @@ const axios = require('axios')
 const router = express.Router()
 var path = require('path');
 
+
+
+router.get('/template-test', (req, res) => {
+  res.render('template')
+})
+
 router.get('/', async (req, res) => {
   res.send('Hello World!')
 })
