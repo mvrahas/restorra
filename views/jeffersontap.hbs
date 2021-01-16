@@ -122,9 +122,9 @@ src="https://www.facebook.com/tr?id=245453822965028&ev=PageView
 
 		<meta name="google-site-verification" content="wSkbdswCy0_Cmy8QZuexmK3ELiQfAaAAYgxMDK4CqRM" />
 		<link rel="stylesheet" type="text/css"
-			href="https://jeffersontap.com/wp-content/themes/SolvedSystems-CHT/css/MyFontsWebfontsKit.css">
+			href="https://restorra.s3.amazonaws.com/jeffersontap/font-import.css">
 		<link rel="stylesheet" type="text/css"
-			href="https://jeffersontap.com/wp-content/themes/SolvedSystems-CHT/css/styles.min.css">
+			href="https://restorra.s3.amazonaws.com/jeffersontap/standard.css">
 <script src="/js/amplitude.js"></script>
 </head>
 
@@ -3444,7 +3444,6 @@ fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnam
 <script src="/js/amplitude-menuviewed.js"></script>
 <script>
     let $ad = document.createElement('DIV')
-    let $adCaption = document.createElement('P')
     let $adCaptionLink = document.createElement('A')
 
     window.addEventListener('load', async (event) => {
@@ -3458,26 +3457,15 @@ fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnam
 
                 $adCaptionLink.href = currentAd.link
                 $ad.style.position = 'relative'
-                $ad.style.width = '300px'
-                $ad.style.height = '160px'
-                $ad.style.margin = '20px'
+                $ad.style.width = '100%'
+				$ad.style.padding = '52.7% 0 0 0'
+                //$ad.style.height = '160px'
+                $ad.style.margin = '0 0 50px 0'
                 $ad.style.backgroundImage = 'url('+currentAd.image_url+')'
                 $ad.style.backgroundSize = 'cover'
                 $ad.style.zIndex = '1000000'
                 $ad.id = 'testad'
                 $adCaptionLink.appendChild($ad);
-
-                let adCaptionText = document.createTextNode(currentAd.caption)
-                $adCaption.id = 'testcaption'
-                $adCaption.style.color = 'white'
-                $adCaption.style.fontFamily = 'Arial, Helvetica, sans-serif'
-                $adCaption.style.fontSize = '18px'
-                $adCaption.style.background = 'black'
-                $adCaption.style.padding = '0 0 0 3px'
-                $adCaption.style.zIndex = '2000000'
-                $adCaption.style.borderRadius = '7px'
-                $adCaption.appendChild(adCaptionText)
-                $ad.appendChild($adCaption)
 
                 let insertedNode = ele.insertBefore($adCaptionLink, ele.childNodes[2])
 
