@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
       } else {
       
         if(restaurantInfo.menu_type == 'inline') {
-      
+
           res.render(restaurantInfo.restaurant_name, {
             //adsWillDisplay: restaurantInfo.display_ads,
             adsWillDisplay: 'true',
@@ -28,6 +28,7 @@ router.get('/', async (req, res) => {
           });
   
         } else {
+          
           const menuURL = restaurantInfo.menu_url || 'https://jeffersontap.com/menu'
           const getAds = await axios.get('http://'+ req.rawHeaders[1] +'/ads')
           var randSelection = Math.floor(Math.random() * getAds.data.length)
@@ -45,7 +46,7 @@ router.get('/', async (req, res) => {
       }
 
     } catch (e) {
-      res.redirect(restaurantInfo.menu_url)
+      res.render('404')
     }
 
   })
