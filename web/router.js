@@ -12,7 +12,7 @@ router.get('/post', getCookie, (req, res) => {
 })
 
 router.get('/summary', getCookie, async (req, res) => {
-    
+    debugger
     var options = {
         uri: 'http://' + req.headers.host + '/scores/summary',
         headers: {

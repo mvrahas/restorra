@@ -7,51 +7,103 @@ const axios = require('axios')
 
 router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
-    const rounds = req.query.rounds
-    const roundsToFetch = 20 - rounds
-    const goalDiff = parseFloat(req.query.goal)
+    debugger
+    const current_date = new Date();
+    const current_date_day = ("0" + current_date.getDate()).slice(-2)
+    const current_date_month = ("0" + (current_date.getMonth() + 1)).slice(-2)
+    const current_date_year = current_date.getFullYear()
+    const current_date_lastYear = current_date.getFullYear() - 1
 
-    let date_ob = new Date();
-    let date = ("0" + date_ob.getDate()).slice(-2)
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
-    let year = date_ob.getFullYear()
-    let lastYear = date_ob.getFullYear() - 1
+
+    const redux = (array, keys_to_keep) => array.map(o => keys_to_keep.reduce((acc, curr) => {
+        acc[curr] = o[curr]
+        return acc
+    }, {}))
     
+
     //const url = 'https://api2.ghin.com/api/v1/golfers/'+req.user.ghin_number+'/scores.json?'
-    const url = 'https://api2.ghin.com/api/v1/scores.json?golfer_id='+req.user.ghin_number+'&offset=0&limit='+roundsToFetch+'&statuses=Validated'
+    const scoresURL = 'https://api2.ghin.com/api/v1/scores.json?golfer_id='+req.user.ghin_number+'&offset=0&limit=20&statuses=Validated'
     const requestOptions = {
         headers: {
             authorization: 'Bearer ' +req.user.ghin_token
         }
     }
 
-    const url2 = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+ lastYear + '-' + month + '-' + date + '&date_end=' + year + '-' + month + '-' + date
+    const indexesURL = 'https://api2.ghin.com/api/v1/golfermethods.asmx/HandicapHistory.json?username=GHIN2020&password=GHIN2020&club=0&ghin_number='+req.user.ghin_number+'&revCount=0&assoc=0&service=0&date_begin='+ current_date_lastYear + '-' + current_date_month + '-' + current_date_day + '&date_end=' + current_date_year + '-' + current_date_month + '-' + current_date_day
 
     try {
-        const diffArray = []
-        const courseArrayBrev = []
-        const courseArray = []
-        var indexArray = []
-        var indexArrayBasic = []
 
-        const response = await axios.get(url, requestOptions)
-        const response2 = await axios.get(url2)
-        const dataObject = response.data
-        const indexListDataObject = response2.data
 
-        const hcp_index = indexListDataObject.handicap_revisions[0].LowHIDisplay
+        const scoresResponse = await axios.get(scoresURL, requestOptions)
+        const indexesResponse = await axios.get(indexesURL)
+        
 
-        for (i = 0; i < dataObject.scores.length; i++) {
+        const scoresData = scoresResponse.data.scores
+        const reducedScoresData = redux(scoresData, ['played_at', 'adjusted_gross_score','differential'])
+
+        reducedScoresData.sort((a,b) => {
+            if(Date.parse(a.played_at) < Date.parse(b.played_at)) {
+                return -1
+            } else {
+                return 1
+            }
+        })
+        
+
+        const indexData = indexesResponse.data
+        //const reducedIndexData = redux(indexData, ['LowHIDisplay', 'RevDate'])
+
+
+        const calculateHandicap = function (scores) {
+            scores.sort((a,b) => {
+                if(a.differential < b.differential) {
+                    return -1
+                } else {
+                    return 1
+                }
+            })
+            let scores_best_8 = scores.slice(0, 8)
+
+            var sum_of_diffs = 0
+            for(var i=0; i<8; i++) {
+                sum_of_diffs += scores_best_8[i].differential
+            }
+
+            return sum_of_diffs / 8
+        }
+
+
+        const rounds_to_checkpoint = 3
+        let predicted_hdcp_revisions = []
+        for(var i=0 ; i < rounds_to_checkpoint ; i++) {
+            reducedScoresData.push({
+                played_at: "2021-01-30",
+                adjusted_gross_score: 71,
+                differential: 3.0
+            })
+            reducedScoresData.shift()
+            let handicap = calculateHandicap(reducedScoresData.slice())
+            predicted_hdcp_revisions.push(handicap)
+        }
+
+
+
+        /*
+
+
+        const hcp_index = indexData.handicap_revisions[0].LowHIDisplay
+
+        for (i = 0; i < scoresData.scores.length; i++) {
             
-            diffArray.push(dataObject.scores[i].differential)
+            diffArray.push(scoresData.scores[i].differential)
             
-            if(courseArrayBrev.indexOf(dataObject.scores[i].course_display_value) === -1) {
-                courseArrayBrev.push(dataObject.scores[i].course_display_value)
+            if(courseArrayBrev.indexOf(scoresData.scores[i].course_display_value) === -1) {
+                courseArrayBrev.push(scoresData.scores[i].course_display_value)
                 courseArray.push({
-                    course: dataObject.scores[i].course_display_value,
-                    tee: dataObject.scores[i].tee_name,
-                    rating: dataObject.scores[i].course_rating,
-                    slope: dataObject.scores[i].slope_rating
+                    course: scoresData.scores[i].course_display_value,
+                    tee: scoresData.scores[i].tee_name,
+                    rating: scoresData.scores[i].course_rating,
+                    slope: scoresData.scores[i].slope_rating
                 })
             }
         }
@@ -67,14 +119,14 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             )
         }
         
-        for (i = 0; i < indexListDataObject.handicap_revisions.length && i < roundsToFetch; i++) {
+        for (i = 0; i < indexData.handicap_revisions.length && i < roundsToFetch; i++) {
             indexArray.push(
                 {
-                    score: parseFloat(indexListDataObject.handicap_revisions[i].Display),
-                    date: indexListDataObject.handicap_revisions[i].RevDate,
+                    score: parseFloat(indexData.handicap_revisions[i].Display),
+                    date: indexData.handicap_revisions[i].RevDate,
                     type: 'confirmed'
                 })
-            indexArrayBasic.push(parseFloat(indexListDataObject.handicap_revisions[i].Display))
+            indexArrayBasic.push(parseFloat(indexData.handicap_revisions[i].Display))
         }
 
         const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
@@ -122,16 +174,12 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             courseArray[i].diff = goalDiffAdjusted
         }
 
+
+
+        */
+
         res.status(200).send({
-            course: courseArray,
-            indexArray,
-            indexData: {
-                currentIndex: hcp_index,
-                goalIndex: goalDiff,
-                projectedIndex: projectedAvgDiff.avg,
-                maxIndex: Math.max(...indexArrayBasic),
-                minIndex: Math.min(...indexArrayBasic)
-            }
+            data: predicted_hdcp_revisions
         })
 
     } catch(e) {

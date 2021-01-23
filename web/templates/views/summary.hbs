@@ -18,7 +18,7 @@
             </svg>
             <h3>Set A Goal</h3>
             <form>
-                <input class="form-input" type="text" value="9.3" id="goal-val" onchange="renderAnalysis()">
+                <input class="form-input" type="text" value="5.0" id="goal-val" onchange="renderAnalysis()">
                 <label>Handicap</label>
                 <input class="form-input" type="text" value="3" id="rounds-val" onchange="renderAnalysis()">
                 <label>Rounds</label>
@@ -94,6 +94,8 @@
                 const data = await get('/analyze/handicap-projection?rounds='+$roundsVal.value+'&goal='+$goalVal.value+'')
 
                 let scoresContainer = document.getElementById('scores-needed')
+
+                console.log(data)
 
                 scoresContainer.innerHTML = ''
 

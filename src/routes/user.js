@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 
 // Register a new user
 router.post('/register', async (req, res) => {
-
+  debugger
   var user = await User.findOne({email: req.body.email})
 
   if(!user) {
