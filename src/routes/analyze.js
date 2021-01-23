@@ -36,6 +36,9 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
         const scoresResponse = await axios.get(scoresURL, requestOptions)
         const indexesResponse = await axios.get(indexesURL)
+        const indexData = indexesResponse.data.handicap_revisions
+
+        const reducedIndexData = redux(indexData, ['Value', 'RevDate'])
         
 
         const scoresData = scoresResponse.data.scores
@@ -50,8 +53,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         })
         
 
-        const indexData = indexesResponse.data
-        //const reducedIndexData = redux(indexData, ['LowHIDisplay', 'RevDate'])
 
 
         const calculateHandicap = function (scores) {
@@ -163,9 +164,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             }
         }
 
-
-
-
         // (113 / Slope Rating) x (Adjusted Gross Score - Course Rating - PCC adjustment) = Diff
         // Adjusted Gross Score = Diff / (113 / Slope Rating) + Course Rating + PCC adjustment
 
@@ -179,7 +177,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         */
 
         res.status(200).send({
-            data: predicted_hdcp_revisions
+            data: reducedIndexData
         })
 
     } catch(e) {
