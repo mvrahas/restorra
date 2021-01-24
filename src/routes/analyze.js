@@ -7,6 +7,7 @@ const axios = require('axios')
 
 router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
+    
     debugger
     const current_date = new Date();
     const current_date_day = ("0" + current_date.getDate()).slice(-2)
@@ -39,10 +40,11 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         const indexData = indexesResponse.data.handicap_revisions
 
         const reducedIndexData = redux(indexData, ['Value', 'RevDate'])
+        reducedIndexData.map(o => o['type'] = 'confirmed')
         
 
         const scoresData = scoresResponse.data.scores
-        const reducedScoresData = redux(scoresData, ['played_at', 'adjusted_gross_score','differential'])
+        const reducedScoresData = redux(scoresData, ['played_at','differential'])
 
         reducedScoresData.sort((a,b) => {
             if(Date.parse(a.played_at) < Date.parse(b.played_at)) {
@@ -75,16 +77,18 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
 
         const rounds_to_checkpoint = 3
-        let predicted_hdcp_revisions = []
         for(var i=0 ; i < rounds_to_checkpoint ; i++) {
             reducedScoresData.push({
                 played_at: "2021-01-30",
-                adjusted_gross_score: 71,
                 differential: 3.0
             })
             reducedScoresData.shift()
             let handicap = calculateHandicap(reducedScoresData.slice())
-            predicted_hdcp_revisions.push(handicap)
+            predicted_hdcp_revisions.push({
+                Value: handicap,
+                RevDate: "2020-02-24T00:00:00",
+                type: "prospective"
+            })
         }
 
 
@@ -177,7 +181,7 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
         */
 
         res.status(200).send({
-            data: reducedIndexData
+            test: reducedScoresData
         })
 
     } catch(e) {

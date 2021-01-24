@@ -1,0 +1,169 @@
+{
+    "handicap_revisions": [
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-12-07T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "10.8",
+            "LowHI": "10.8"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-10-25T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "10.8",
+            "LowHI": "10.8"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-08-17T00:00:00",
+            "Display": "10.8",
+            "Value": "10.8",
+            "LowHIDisplay": "10.8",
+            "LowHI": "10.8"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-08-03T00:00:00",
+            "Display": "10.8",
+            "Value": "10.8",
+            "LowHIDisplay": "10.8",
+            "LowHI": "10.8"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-07-25T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-07-04T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-06-22T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-06-13T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-06-06T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-06-01T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-05-17T00:00:00",
+            "Display": "11.4",
+            "Value": "11.4",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-05-10T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-04-25T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-02-24T00:00:00",
+            "Display": "11.2",
+            "Value": "11.2",
+            "LowHIDisplay": "11.2",
+            "LowHI": "11.2"
+        },
+        {
+            "GHINNumber": "2349545",
+            "Assoc": "73",
+            "Club": "492",
+            "Service": "0",
+            "RevDate": "2020-01-20T00:00:00",
+            "Display": "11.3",
+            "Value": "11.3",
+            "LowHIDisplay": "11.3",
+            "LowHI": "11.3"
+        }
+    ]
+}
