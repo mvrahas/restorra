@@ -4,6 +4,9 @@ const router = express.Router()
 const authenticate = require('../tools/authenticate.js')
 const axios = require('axios')
 
+const testRevisions = require('../testrevisions.json')
+const testScores = require('../testscores.json')
+
 
 router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
 
@@ -35,17 +38,17 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
     try {
 
 
-        const scoresResponse = await axios.get(scoresURL, requestOptions)
-        const indexesResponse = await axios.get(indexesURL)
+        //const indexesResponse = await axios.get(indexesURL)
+        const indexesResponse = testRevisions
         const indexData = indexesResponse.data.handicap_revisions
-
         const reducedIndexData = redux(indexData, ['Value', 'RevDate'])
         reducedIndexData.map(o => o['type'] = 'confirmed')
         
 
+        //const scoresResponse = await axios.get(scoresURL, requestOptions)
+        const scoresResponse = testScores
         const scoresData = scoresResponse.data.scores
         const reducedScoresData = redux(scoresData, ['played_at','differential'])
-
         reducedScoresData.sort((a,b) => {
             if(Date.parse(a.played_at) < Date.parse(b.played_at)) {
                 return -1
@@ -54,8 +57,6 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             }
         })
         
-
-
 
         const calculateHandicap = function (scores) {
             scores.sort((a,b) => {
@@ -84,104 +85,15 @@ router.get('/analyze/handicap-projection', authenticate, async (req, res) => {
             })
             reducedScoresData.shift()
             let handicap = calculateHandicap(reducedScoresData.slice())
-            predicted_hdcp_revisions.push({
+            reducedIndexData.push({
                 Value: handicap,
                 RevDate: "2020-02-24T00:00:00",
                 type: "prospective"
             })
         }
 
-
-
-        /*
-
-
-        const hcp_index = indexData.handicap_revisions[0].LowHIDisplay
-
-        for (i = 0; i < scoresData.scores.length; i++) {
-            
-            diffArray.push(scoresData.scores[i].differential)
-            
-            if(courseArrayBrev.indexOf(scoresData.scores[i].course_display_value) === -1) {
-                courseArrayBrev.push(scoresData.scores[i].course_display_value)
-                courseArray.push({
-                    course: scoresData.scores[i].course_display_value,
-                    tee: scoresData.scores[i].tee_name,
-                    rating: scoresData.scores[i].course_rating,
-                    slope: scoresData.scores[i].slope_rating
-                })
-            }
-        }
-        
-        //create list of index's
-        for(i=0; i< rounds; i++) {
-            indexArray.push(
-                {
-                    score: goalDiff,
-                    date: 'NA',
-                    type: 'prospective'
-                }
-            )
-        }
-        
-        for (i = 0; i < indexData.handicap_revisions.length && i < roundsToFetch; i++) {
-            indexArray.push(
-                {
-                    score: parseFloat(indexData.handicap_revisions[i].Display),
-                    date: indexData.handicap_revisions[i].RevDate,
-                    type: 'confirmed'
-                })
-            indexArrayBasic.push(parseFloat(indexData.handicap_revisions[i].Display))
-        }
-
-        const calculateProjectedAvgDiff = function(tempDiff, numberToAdd, arrayOfDiffs) {
-            var arrayOfDiffsTemp = [...arrayOfDiffs]
-            for (i = 0; i < numberToAdd; i++) {
-                arrayOfDiffsTemp.push(tempDiff)
-            }
-            
-            arrayOfDiffsTemp.sort((a,b) => a-b)
-    
-            var total = 0
-            var counter = 0
-            while(counter < arrayOfDiffsTemp.length & counter < 8) {
-                total = total + arrayOfDiffsTemp[counter]
-                counter++
-            }
-            return {avg: total/counter, array: arrayOfDiffsTemp}
-
-        }
-        
-        var goalDiffAdjusted = goalDiff
-        var projectedAvgDiffIsNotYetFound = true
-        var projectedAvgDiff = calculateProjectedAvgDiff(goalDiffAdjusted, rounds, diffArray)
-
-        while(projectedAvgDiffIsNotYetFound) {
-            if (projectedAvgDiff.avg - goalDiff > .2) {
-                goalDiffAdjusted = goalDiffAdjusted - .1
-                projectedAvgDiff = calculateProjectedAvgDiff(goalDiffAdjusted, rounds, diffArray)
-            } else if (projectedAvgDiff.avg - goalDiff < -.2) {
-                goalDiffAdjusted = goalDiffAdjusted + .1
-                projectedAvgDiff = calculateProjectedAvgDiff(goalDiffAdjusted, rounds, diffArray)
-            } else {
-                projectedAvgDiffIsNotYetFound = false
-            }
-        }
-
-        // (113 / Slope Rating) x (Adjusted Gross Score - Course Rating - PCC adjustment) = Diff
-        // Adjusted Gross Score = Diff / (113 / Slope Rating) + Course Rating + PCC adjustment
-
-        for (i = 0; i < courseArray.length; i++) {
-            courseArray[i].targetScore = Math.round(goalDiffAdjusted / (113 / courseArray[i].slope) + courseArray[i].rating)
-            courseArray[i].diff = goalDiffAdjusted
-        }
-
-
-
-        */
-
         res.status(200).send({
-            test: reducedScoresData
+            test: reducedIndexData
         })
 
     } catch(e) {

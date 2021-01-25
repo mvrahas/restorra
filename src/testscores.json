@@ -1,4 +1,5 @@
 {
+    "data" : {
     "scores": [
         {
             "id": 688929036,
@@ -2891,4 +2892,5 @@
     "highest_score": 100,
     "lowest_score": 80,
     "average": 89.9
+    }
 }
