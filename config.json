@@ -1,6 +1,6 @@
 {
     "local" : {
-        "APPLICATION_VERSION": "0.1.1",
+        "APPLICATION_VERSION": "0.1.2",
         "APPLICATION_TITLE": "Restorra",
         "db_connection_string" : "mongodb://127.0.0.1:27017",
         "db_name" : "restorra",
