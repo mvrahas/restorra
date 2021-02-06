@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   res.send('Hello World!')
 })
 
-  router.get('/:id', async (req, res) => {
+  router.get('/m/:id', async (req, res) => {
 
     try {
 
@@ -50,6 +50,31 @@ router.get('/', async (req, res) => {
     }
 
   })
+
+
+
+  router.get('/jeffersontap', (req, res) => {
+  
+  
+    axios.get('https://jeffersontap.com/menu')
+    .then(function (response) {
+        
+        var a = response.data;
+        var b = "<script src='/js/amplitude.js'></script><script src='/js/insertadinline.js'></script><script>window.addEventListener('load', async (event) => {insertAdInline('"+global.gConfig.amplitude_api_key+"')})</script>"
+        var position = response.data.length - 9
+        var output = [a.slice(0, position), b, a.slice(position)].join('');
+        output = output.replace('https://jeffersontap.com/wp-content/themes/SolvedSystems-CHT/css/styles.min.css','https://restorra.s3.amazonaws.com/jeffersontap/standard.css')
+        output = output.replace('https://jeffersontap.com/wp-content/themes/SolvedSystems-CHT/css/MyFontsWebfontsKit.css','https://restorra.s3.amazonaws.com/jeffersontap/font-import.css')
+        res.send(output);
+    })
+    .catch(function (error) {
+        res.redirect('https://jeffersontap.com/menu');
+    })
+
+  
+  })
+
+
 
   
   module.exports = router
