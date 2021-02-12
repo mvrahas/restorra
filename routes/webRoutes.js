@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
     .then(function (response) {
         
         var a = response.data;
-        var b = "<script src='/js/amplitude.js'></script><script src='/js/insertadinline.js'></script><script>window.addEventListener('load', async (event) => {insertAdInline('"+global.gConfig.amplitude_api_key+"')})</script>"
+        var b = "<script src='/js/amplitude.js'></script><script src='/js/insertadinline.js'></script><script>window.addEventListener('load', async (event) => {amplitude.getInstance().init('"+global.gConfig.amplitude_api_key+"'); trackMenuViewedEvent(); insertAdInline();})</script>"
         var position = response.data.length - 9
         var output = [a.slice(0, position), b, a.slice(position)].join('');
         output = output.replace('https://jeffersontap.com/wp-content/themes/SolvedSystems-CHT/css/styles.min.css','https://restorra.s3.amazonaws.com/jeffersontap/standard.css')
