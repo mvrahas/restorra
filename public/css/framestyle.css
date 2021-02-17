@@ -6,7 +6,7 @@ body {
 }
 #inlineFrameExample {
     width: 100vw;
-    height: calc(100vh - 160px);
+    height: 100vh;
     border: 0;
 }
 #add-caption {

@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 
 
-// API Initialization
+// App Initialization
 
 const _ = require('lodash')
 const config = require('./config.json')
@@ -13,28 +13,15 @@ const port = process.env.PORT || 3000
 const updated_config_based_on_environment = _.merge(config.local, config[environment])
 global.gConfig = updated_config_based_on_environment
 const chalk = require('chalk')
-const adRouter = require('./routes/ad')
-const restaurantRouter = require('./routes/restaurant')
-const advertiserRouter = require('./routes/advertiser')
-const mongooseConnection = require('./mongooseconnection')
-
 app.use(express.json())
-app.use(adRouter)
-app.use(restaurantRouter)
-app.use(advertiserRouter)
-
-
-// Web App Initialization
 
 const path = require('path')
 const publicDirectoryPath = path.join(__dirname, './public')
 const viewsPath = path.join(__dirname, './views')
 const webRouter = require('./routes/webRoutes')
-const pocRouter = require('./routes/pocRoutes')
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 app.use(webRouter)
-app.use(pocRouter)
 app.use(express.static(publicDirectoryPath))
 
 

@@ -1,0 +1,32 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3617081, 2018-07-31T17:16:33-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: NexaRustSans-Black by Fontfabric
+ * URL: https://www.myfonts.com/fonts/font-fabric/nexa-rust/sans-black/
+ * Copyright: Copyright &#x00A9; 2014 by Fontfabric. All rights reserved.
+ * Licensed pageviews: 10,000
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3617081
+ * 
+ * Â© 2018 MyFonts Inc
+ *Replaces 37319_0_0.ttf
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/373139");
+/*@import url("//hello.myfonts.net/count/373141");*/
+@import url("//hello.myfonts.net/count/37316f");
+  
+@font-face {font-family: 'NexaRustSans-Black';src: url('webfonts/373139_0_0.eot');src: url('webfonts/373139_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/373139_0_0.woff2') format('woff2'),url('webfonts/373139_0_0.woff') format('woff'),url('/menu-files/jeffersontap/4.woff2') format('truetype');}
+/*@font-face {font-family: 'NexaRustSlab-BlackShadow';src: url('webfonts/373141_0_0.eot');src: url('webfonts/373141_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/373141_0_0.woff2') format('woff2'),url('webfonts/373141_0_0.woff') format('woff'),url('webfonts/373141_0_0.ttf') format('truetype');}*/
+@font-face {font-family: 'NexaRustSlab-Black01';src: url('/menu-files/jeffersontap/6.ttf');src: url('webfonts/37316F_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/37316F_0_0.woff2') format('woff2'),url('webfonts/37316F_0_0.woff') format('woff'),url('webfonts/37316F_0_0.ttf') format('truetype');}
+@font-face {font-family: 'NexaRustSlab-BlackShadow01';src: url('/menu-files/jeffersontap/5.woff2');src: url('webfonts/37316F_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/37316F_1_0.woff2') format('woff2'),url('webfonts/37316F_1_0.woff') format('woff'),url('/menu-files/jeffersontap/5.woff2') format('truetype');}
