@@ -12,8 +12,6 @@ Run the application by entering 'npm start'
 
 The application is now running locally with your computer acting as the server. Open any of the following links in your browser to use the functionality
 
-http://localhost:3000/menu
+http://localhost:3000/jeffersontap
 
-http://localhost:3000/selectrestaurant
-
-http://localhost:3000/insertads
+http://localhost:3000/fixed?menu=http://shabu-shabu-zen.com/menu
