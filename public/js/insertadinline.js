@@ -17,6 +17,7 @@ var trackImpressionEvent = function (caption) {
         'restaurant_name': 'jeffersontap',
         'ad_caption': caption
     }
+    console.log('hey')
     amplitude.getInstance().logEvent('Ad_Viewed', eventProperties)
     didTrackImpressionEvent = true
 }
@@ -46,34 +47,28 @@ var isInViewport = function (elem) {
 
 
 
-// Fetch adds, create ad element, and track menu viewed event
+// Create ad element and place on the menu
 let $ad = document.createElement('DIV')
 const insertAdInline = function() {
 
     var ele = document.getElementById('main')    
-    fetch('/ads?restaurant=jeffersontap')
-    .then(response => response.json())
-    .then((data) => {
-        var randSelection = Math.floor(Math.random() * data.length)
-        var currentAd = data[randSelection]
-    
-        $ad.style.position = 'relative'
-        $ad.setAttribute('onclick','linkToPage("'+currentAd.link+'","'+currentAd.caption+'")')
-        $ad.style.width = '100%'
-        $ad.style.padding = '52.7% 0 0 0'
-        $ad.style.margin = '0 0 50px 0'
-        $ad.style.backgroundImage = 'url('+currentAd.image_url+')'
-        $ad.style.boxShadow = '2px 10px 18px #00000030'
-        $ad.style.backgroundSize = 'cover'
-        $ad.style.zIndex = '1000000'
-        $ad.id = 'testad'
-        let insertedNode = ele.insertBefore($ad, ele.childNodes[2])
 
-        window.addEventListener('scroll', function (event) {
-            if (isInViewport($ad) && didTrackImpressionEvent == false) {
-	            trackImpressionEvent(currentAd.caption)
-	        }
-        }, false)
-    })
+    $ad.style.position = 'relative'
+    $ad.setAttribute('onclick','linkToPage("https://www.theneoclean.com/","Neo-Clean Wipes")')
+    $ad.style.width = '100%'
+    $ad.style.padding = '52.7% 0 0 0'
+    $ad.style.margin = '0 0 50px 0'
+    $ad.style.backgroundImage = 'url("/img/neoclean.png")'
+    $ad.style.boxShadow = '2px 10px 18px #00000030'
+    $ad.style.backgroundSize = 'cover'
+    $ad.style.zIndex = '1000000'
+    $ad.id = 'testad'
+    let insertedNode = ele.insertBefore($ad, ele.childNodes[2])
+
+    window.addEventListener('scroll', function (event) {
+        if (isInViewport($ad) && didTrackImpressionEvent == false) {
+	        trackImpressionEvent("Neo-Clean Wipes")
+	    }
+    }, false)
 
 }
