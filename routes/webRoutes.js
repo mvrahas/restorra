@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 })
 
 
-// Request menu.restorra.com/jeffersontap
+// Display the jefferson tap menu with ad placed inline
 router.get('/jeffersontap', (req, res) => {
   
     axios.get('https://jeffersontap.com/menu')
@@ -30,7 +30,7 @@ router.get('/jeffersontap', (req, res) => {
 })
 
 
-// Request menu.restorra.com/fixed?menu=http://shabu-shabu-zen.com/menu
+// Display any menu with ad placed fixed
 router.get('/fixed', async (req, res) => {
   
   try {
