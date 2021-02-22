@@ -73,6 +73,7 @@ const insertAdInline = function() {
     $caption.style.margin = '0px'
     $caption.style.fontFamily = 'Arial, sans-serif'
     $caption.style.textAlign = 'left'
+    $caption.style.fontSize = '12px'
     $caption.style.padding = '6px 10px 6px 6px'
     $caption.style.borderRadius = '0px 0px 10px 10px'
     $caption.style.background = 'black'
