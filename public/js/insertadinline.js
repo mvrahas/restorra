@@ -62,8 +62,9 @@ const insertAdInline = function() {
     $ad.style.backgroundImage = 'url("/img/neoclean.png")'
     $ad.style.boxShadow = '2px 10px 18px #00000030'
     $ad.style.backgroundSize = 'cover'
+    $ad.style.backgroundPosition = 'center'
+    $ad.style.borderRadius = '5px'
     $ad.style.zIndex = '1000000'
-    $ad.id = 'testad'
 	
     $caption.innerHTML = 'The best screen wipes out there!'
     $caption.style.display = 'block'
