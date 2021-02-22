@@ -48,10 +48,11 @@ var isInViewport = function (elem) {
 
 
 // Create ad element and place on the menu
-let $ad = document.createElement('DIV')
 const insertAdInline = function() {
 
-    var ele = document.getElementById('main')    
+    var ele = document.getElementById('main')
+    let $ad = document.createElement('DIV')
+    let $caption = document.createElement('P')
 
     $ad.style.position = 'relative'
     $ad.setAttribute('onclick','linkToPage("https://www.theneoclean.com/","Neo-Clean Wipes")')
@@ -63,6 +64,15 @@ const insertAdInline = function() {
     $ad.style.backgroundSize = 'cover'
     $ad.style.zIndex = '1000000'
     $ad.id = 'testad'
+	
+    $caption.innerHTML = 'The best screen wipes out there!'
+    $caption.style.display = 'block'
+    $caption.style.position = 'absolute'
+    $caption.style.bottom = '0px'
+    $caption.style.background = 'black'
+    $caption.style.color = 'white'
+    $ad.appendChild($caption)
+    
     let insertedNode = ele.insertBefore($ad, ele.childNodes[2])
 
     window.addEventListener('scroll', function (event) {
