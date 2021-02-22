@@ -57,7 +57,7 @@ const insertAdInline = function() {
     $ad.style.position = 'relative'
     $ad.setAttribute('onclick','linkToPage("https://www.theneoclean.com/","Neo-Clean Wipes")')
     $ad.style.width = '100%'
-    //$ad.style.padding = '52.7% 0 0 0'
+    $ad.style.padding = '52.7% 0 0 0'
     $ad.style.margin = '0 0 50px 0'
     $ad.style.backgroundImage = 'url("/img/neoclean.png")'
     $ad.style.boxShadow = '2px 10px 18px #00000030'
@@ -70,6 +70,7 @@ const insertAdInline = function() {
     $caption.style.position = 'absolute'
     $caption.style.bottom = '0px'
     $caption.style.fontFamily = 'Arial, sans-serif'
+    $caption.style.textAlign = 'left'
     $caption.style.background = 'black'
     $caption.style.color = 'white'
     $caption.style.width = '100%'
