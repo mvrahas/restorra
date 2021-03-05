@@ -59,14 +59,14 @@ const insertAdInline = function() {
     $ad.style.width = '100%'
     $ad.style.padding = '57.2% 0 0 0'
     $ad.style.margin = '0 0 50px 0'
-    $ad.style.backgroundImage = 'url("/img/NeoClean2.png")'
+    $ad.style.backgroundImage = 'url("/img/NeoClean4.png")'
     $ad.style.boxShadow = '2px 10px 18px #00000030'
     $ad.style.backgroundSize = 'cover'
     $ad.style.backgroundPosition = 'center'
     $ad.style.borderRadius = '10px'
     $ad.style.zIndex = '1000000'
-	
-    $caption.innerHTML = 'Essential wipes for life on-the-go!'
+	/*
+    $caption.innerHTML = 'NeoClean: Proud partner of Jefferson Tap'
     $caption.style.display = 'block'
     $caption.style.position = 'absolute'
     $caption.style.bottom = '0px'
@@ -80,6 +80,7 @@ const insertAdInline = function() {
     $caption.style.color = 'white'
     $caption.style.width = '100%'
     $ad.appendChild($caption)
+    */
     
     let insertedNode = ele.insertBefore($ad, ele.childNodes[2])
 
