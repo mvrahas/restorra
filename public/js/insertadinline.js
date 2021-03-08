@@ -48,21 +48,40 @@ var isInViewport = function (elem) {
 
 
 // Create ad element and place on the menu
-let $ad = document.createElement('DIV')
 const insertAdInline = function() {
 
-    var ele = document.getElementById('main')    
+    var ele = document.getElementById('main')
+    let $ad = document.createElement('DIV')
+    let $caption = document.createElement('P')
 
     $ad.style.position = 'relative'
     $ad.setAttribute('onclick','linkToPage("https://www.theneoclean.com/","Neo-Clean Wipes")')
     $ad.style.width = '100%'
-    $ad.style.padding = '52.7% 0 0 0'
+    $ad.style.padding = '57.2% 0 0 0'
     $ad.style.margin = '0 0 50px 0'
-    $ad.style.backgroundImage = 'url("/img/neoclean.png")'
+    $ad.style.backgroundImage = 'url("/img/NeoClean6.png")'
     $ad.style.boxShadow = '2px 10px 18px #00000030'
     $ad.style.backgroundSize = 'cover'
+    $ad.style.backgroundPosition = 'center'
+    $ad.style.borderRadius = '10px'
     $ad.style.zIndex = '1000000'
-    $ad.id = 'testad'
+	/*
+    $caption.innerHTML = 'NeoClean: Proud partner of Jefferson Tap'
+    $caption.style.display = 'block'
+    $caption.style.position = 'absolute'
+    $caption.style.bottom = '0px'
+    $caption.style.margin = '0px'
+    $caption.style.fontFamily = 'Arial, sans-serif'
+    $caption.style.textAlign = 'left'
+    $caption.style.fontSize = '15px'
+    $caption.style.padding = '6px 10px 6px 6px'
+    $caption.style.borderRadius = '0px 0px 10px 10px'
+    $caption.style.background = 'black'
+    $caption.style.color = 'white'
+    $caption.style.width = '100%'
+    $ad.appendChild($caption)
+    */
+    
     let insertedNode = ele.insertBefore($ad, ele.childNodes[2])
 
     window.addEventListener('scroll', function (event) {
