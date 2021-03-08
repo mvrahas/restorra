@@ -1,6 +1,6 @@
 {
     "local" : {
-        "APPLICATION_VERSION": "0.2.1",
+        "APPLICATION_VERSION": "0.2.2",
         "APPLICATION_TITLE": "Restorra",
         "amplitude_api_key" : "0f10c615555664f4e9ee4308d2e108d4"
     },
