@@ -1,17 +1,23 @@
-# restorra
+# Restorra
 
-Download NodeJS For Windows following these instructions. https://www.twilio.com/blog/starting-from-zero-node-js-windows-10
+## About
 
-Download the source code for the project and unzip it
+An iFrame that places an advertisement on top of a web page such as a restaurant menu. When you open the project to the example link, you'll see the advertisement for NeoClean placed on top of a menu from ShabuZen.
 
-Open a terminal window and use the 'cd' command to navigate into the project folder
 
-Install the requirements for the application by entering 'npm install'
+## Run The Project
 
-Run the application by entering 'npm start'
+1) Clone the repository<br>
+2) Run `npm install` in the directory<br>
+3) Run `npm start` in the directory<br>
+4) Open web browser to this `[example URL](http://localhost:3000/fixed?menu=http://shabu-shabu-zen.com/menu)`<br>
+5) Experiment with different menu parameters as desired
 
-The application is now running locally with your computer acting as the server. Open any of the following links in your browser to use the functionality
+## Preview
 
-http://localhost:3000/jeffersontap
+![Map](https://github.com/mvrahas/gwo-foto/blob/master/public/assets/welcome/gwo-foto-map%401x.png)
 
-http://localhost:3000/fixed?menu=http://shabu-shabu-zen.com/menu
+
+
+
+
