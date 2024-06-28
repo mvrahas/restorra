@@ -10,7 +10,7 @@ An iFrame that places an advertisement on top of a web page such as a restaurant
 2) Run `npm install` in the directory<br>
 3) Run `npm start` in the directory<br>
 4) Open web browser to this [example URL](https://localhost:3000/fixed?menu=http://shabu-shabu-zen.com/menu)<br>
-5) Experiment with different menu parameters as desired
+5) Experiment with different values for the `menu` query parameter
 
 ## Preview
 
