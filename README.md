@@ -2,8 +2,7 @@
 
 ## About
 
-An iFrame that places an advertisement on top of a web page such as a restaurant menu. When you open the project to the example link, you'll see the advertisement for NeoClean placed on top of a menu from ShabuZen.
-
+An iFrame that places an advertisement on top of a web page such as a restaurant menu. When you open the project to the example link, you'll see the advertisement for NeoClean placed on top of a restaurant menu from ShabuZen.
 
 ## Run The Project
 
@@ -15,7 +14,7 @@ An iFrame that places an advertisement on top of a web page such as a restaurant
 
 ## Preview
 
-![Map](https://github.com/mvrahas/gwo-foto/blob/master/public/assets/welcome/gwo-foto-map%401x.png)
+![Map](https://github.com/mvrahas/restorra/blob/master/public/img/example.png)
 
 
 
